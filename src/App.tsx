@@ -483,14 +483,14 @@ export default function App() {
 
       <NeuralNetwork mouseX={cursorPos.x} mouseY={cursorPos.y} />
 
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5 bg-gradient-to-b from-black/60 to-transparent backdrop-blur-[2px]">
-        <div className="flex items-center gap-2.5 cursor-pointer">
-          <svg className="w-[26px] h-[26px] animate-pulse" viewBox="0 0 256 256" fill="#ffffff">
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-3 sm:px-5 py-3 sm:py-5 bg-gradient-to-b from-black/60 to-transparent backdrop-blur-[2px]">
+        <div className="flex items-center gap-2 sm:gap-2.5 cursor-pointer min-w-0">
+          <svg className="w-[22px] h-[22px] sm:w-[26px] sm:h-[26px] animate-pulse shrink-0" viewBox="0 0 256 256" fill="#ffffff">
             <path d="M 256 256 L 128 256 L 0 128 L 128 128 Z M 256 128 L 128 128 L 0 0 L 128 0 Z" />
           </svg>
-          <div className="flex flex-col">
-            <span className="text-white text-xl sm:text-2xl font-noto font-semibold leading-none tracking-[0.15em]">新會商會中學</span>
-            <span className="text-[9px] tracking-[0.35em] uppercase text-white/50 font-bold">AI 智慧校園</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-white text-sm sm:text-base md:text-2xl font-noto font-semibold leading-none tracking-[0.12em] sm:tracking-[0.15em] truncate">新會商會中學</span>
+            <span className="text-[7px] sm:text-[9px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/50 font-bold">AI 智慧校園</span>
           </div>
         </div>
 
@@ -531,21 +531,21 @@ export default function App() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[90] bg-black/95 backdrop-blur-xl flex flex-col justify-center p-8 transition-all duration-300">
-          <div className="flex flex-col gap-6 text-center text-xl font-light tracking-[0.08em]">
+        <div className="fixed inset-0 z-[90] bg-black/95 backdrop-blur-xl flex flex-col justify-center p-6 sm:p-8 transition-all duration-300">
+          <div className="flex flex-col gap-4 sm:gap-6 text-center text-lg sm:text-xl font-light tracking-[0.08em]">
             <button onClick={() => { setSelectedPillar(null); setMobileMenuOpen(false); }}
-              className="hover:text-[#8BC34A] transition-colors py-2 block text-white/90">
+              className="hover:text-[#8BC34A] transition-colors py-3 sm:py-2 block text-white/90 min-h-[48px] flex items-center justify-center">
               學校概覽
             </button>
             {aiPillars.map((pillar) => (
               <button key={pillar.id}
                 onClick={() => { setSelectedPillar(pillar); setMobileMenuOpen(false); }}
-                className="hover:text-[#8BC34A] transition-colors py-2 block text-white/90 text-lg">
+                className="hover:text-[#8BC34A] transition-colors py-3 sm:py-2 block text-white/90 text-base sm:text-lg min-h-[48px] flex items-center justify-center">
                 {pillar.title}
               </button>
             ))}
             <button onClick={() => { setSelectedPillar(aiPillars[0]); setMobileMenuOpen(false); }}
-              className="mt-6 bg-[#8BC34A] text-white font-semibold text-base py-3 px-8 rounded-full shadow-lg">
+              className="mt-4 sm:mt-6 bg-[#8BC34A] text-white font-semibold text-sm sm:text-base py-3.5 sm:py-3 px-8 rounded-full shadow-lg min-h-[48px]">
               <span className="tracking-[0.08em]">探索 AI 教育計劃</span>
             </button>
           </div>
@@ -561,15 +561,15 @@ export default function App() {
 
         <LiquidReveal image={bgImage} cursorX={cursorPos.x} cursorY={cursorPos.y} velocity={velocityRef} />
 
-        <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md text-xs font-semibold text-[#8BC34A] uppercase tracking-widest cyber-pulse select-none">
-          <Sparkles size={12} className="animate-pulse" />
-          <span className="tracking-[0.15em]">新會商會中學 · AI 教育改革</span>
+        <div className="absolute top-[12%] sm:top-[10%] left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md text-[9px] sm:text-xs font-semibold text-[#8BC34A] uppercase tracking-widest cyber-pulse select-none whitespace-nowrap">
+          <Sparkles size={10} className="shrink-0 animate-pulse" />
+          <span className="tracking-[0.12em] sm:tracking-[0.15em]">新會商會中學 · AI 教育改革</span>
         </div>
 
-        <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex flex-col items-center text-center px-5 pointer-events-none z-50">
+        <div className="absolute top-[45%] sm:top-1/2 -translate-y-1/2 left-0 right-0 flex flex-col items-center text-center px-4 sm:px-5 pointer-events-none z-50">
           <h1 className="text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
-            <span className="block font-noto font-bold italic text-[3.5rem] sm:text-[5.5rem] md:text-[7rem]"
-              style={{ letterSpacing: '0.15em' }}>
+            <span className="block font-noto font-bold italic text-[2.8rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem]"
+              style={{ letterSpacing: '0.08em' }}>
               {typingText.split('').map((ch, i) => (
                 <span key={i} className="char-type" style={{
                   opacity: i < typingStep ? 1 : 0,
@@ -580,31 +580,31 @@ export default function App() {
               ))}
             </span>
           </h1>
-          <div className="mt-4 flex items-center gap-2 text-white/40 text-[10px] sm:text-xs tracking-[0.2em] uppercase select-none animate-pulse">
-            <Compass size={12} className="animate-spin" style={{ animationDuration: '6s' }} />
-            <span className="tracking-[0.15em]">移動滑鼠或觸控 ‧ 探索新會商會中學 AI 教育藍圖</span>
+          <div className="mt-3 sm:mt-4 flex items-center gap-2 text-white/40 text-[9px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase select-none animate-pulse">
+            <Compass size={10} className="shrink-0 animate-spin" style={{ animationDuration: '6s' }} />
+            <span className="tracking-[0.1em] sm:tracking-[0.15em]">探索 SWCSSS AI 教育藍圖</span>
           </div>
         </div>
 
-        <div className="absolute bottom-6 sm:bottom-10 left-0 right-0 z-50 px-4 sm:px-10 tilt-container">
-          <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <div className="absolute bottom-4 sm:bottom-10 left-0 right-0 z-50 px-3 sm:px-10 tilt-container">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
             {aiPillars.map((pillar, i) => {
               const c = cardColors[i];
               return (
                 <TiltCard key={pillar.id}>
                   <button
                     onClick={() => setSelectedPillar(pillar)}
-                    className={`relative w-full p-4 sm:p-5 rounded-2xl ${c.bg} ${c.border} ${c.hover} border backdrop-blur-sm text-left cursor-pointer`}
+                    className={`relative w-full p-2.5 sm:p-5 rounded-xl sm:rounded-2xl ${c.bg} ${c.border} ${c.hover} border backdrop-blur-sm text-left cursor-pointer`}
                     style={{ boxShadow: `0 0 30px ${c.glow}` }}
                   >
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${c.bg} flex items-center justify-center mb-3`}>
-                      {pillar.icon}
+                    <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl ${c.bg} flex items-center justify-center mb-1.5 sm:mb-3`}>
+                      <span className="scale-[0.7] sm:scale-100">{pillar.icon}</span>
                     </div>
-                    <h3 className="text-sm sm:text-base font-noto font-semibold text-white mb-1.5 tracking-[0.08em]">{pillar.title}</h3>
-                    <p className={`text-[10px] sm:text-xs ${c.text}/70 leading-relaxed tracking-[0.05em]`}>{pillar.short}</p>
-                    <div className={`mt-3 flex items-center gap-1 text-[10px] ${c.text}`}>
+                    <h3 className="text-[11px] sm:text-base font-noto font-semibold text-white mb-1 sm:mb-1.5 tracking-[0.06em] sm:tracking-[0.08em]">{pillar.title}</h3>
+                    <p className={`text-[9px] sm:text-xs ${c.text}/70 leading-relaxed tracking-[0.04em] sm:tracking-[0.05em] hidden sm:block`}>{pillar.short}</p>
+                    <div className={`mt-1.5 sm:mt-3 flex items-center gap-1 text-[9px] sm:text-[10px] ${c.text}`}>
                       <span>了解更多</span>
-                      <ArrowRight size={10} />
+                      <ArrowRight size={8} />
                     </div>
                   </button>
                 </TiltCard>
@@ -615,29 +615,29 @@ export default function App() {
       </section>
 
       {selectedPillar && selectedPillar.id !== 'funding' && selectedPillar.id !== 'assistant' && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="bg-[#0b0b0c] border border-white/10 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-[150] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+          <div className="bg-[#0b0b0c] border border-white/10 rounded-2xl max-w-lg w-full p-4 sm:p-8 relative shadow-2xl animate-in fade-in zoom-in-95 duration-300 mx-3 sm:mx-0">
             <button onClick={() => setSelectedPillar(null)}
-              className="absolute top-4 right-4 text-white/40 hover:text-white p-1 hover:bg-white/5 rounded-full transition-colors">
-              <X size={20} />
+              className="absolute top-3 right-3 text-white/40 hover:text-white p-1 hover:bg-white/5 rounded-full transition-colors">
+              <X size={18} />
             </button>
 
-            <div className="flex items-center gap-3.5 mb-5 border-b border-white/10 pb-4">
-              <div className="p-2.5 rounded-xl bg-white/5">{selectedPillar.icon}</div>
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#8BC34A] font-bold">新會商會中學 · AI 教育</span>
-                <h3 className="text-lg sm:text-xl font-semibold text-white">{selectedPillar.title}</h3>
+            <div className="flex items-center gap-3 sm:gap-3.5 mb-4 sm:mb-5 border-b border-white/10 pb-3 sm:pb-4">
+              <div className="p-2 sm:p-2.5 rounded-xl bg-white/5">{selectedPillar.icon}</div>
+              <div className="min-w-0">
+                <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[#8BC34A] font-bold">新會商會中學 · AI 教育</span>
+                <h3 className="text-base sm:text-xl font-semibold text-white">{selectedPillar.title}</h3>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <p className="text-white/90 text-sm leading-relaxed font-light tracking-[0.06em]">{selectedPillar.desc}</p>
+            <div className="space-y-3 sm:space-y-4">
+              <p className="text-white/90 text-xs sm:text-sm leading-relaxed font-light tracking-[0.05em] sm:tracking-[0.06em]">{selectedPillar.desc}</p>
 
               {selectedPillar.id === 'vibecoding' && (
-                <div className="p-3.5 rounded-lg bg-black/40 border border-[#66BB6A]/10 text-xs font-mono text-[#66BB6A]">
-                  <div className="flex justify-between items-center text-[10px] text-white/40 mb-2 border-b border-white/5 pb-1">
+                <div className="p-3 sm:p-3.5 rounded-lg bg-black/40 border border-[#66BB6A]/10 text-[10px] sm:text-xs font-mono text-[#66BB6A]">
+                  <div className="flex justify-between items-center text-[9px] sm:text-[10px] text-white/40 mb-2 border-b border-white/5 pb-1">
                     <span>VIBE_CODING_SIMULATOR.sh</span>
-                    <span className="w-2 h-2 rounded-full bg-[#66BB6A] animate-pulse"></span>
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#66BB6A] animate-pulse"></span>
                   </div>
                   <div># Prompt: "建立一個校園圖書管理系統"</div>
                   <div className="text-white/60 mt-1">&gt; 正在生成應用程式...</div>
@@ -646,9 +646,9 @@ export default function App() {
               )}
             </div>
 
-            <div className="flex gap-3 justify-end mt-7 pt-4 border-t border-white/10">
+            <div className="flex gap-2 sm:gap-3 justify-end mt-5 sm:mt-7 pt-3 sm:pt-4 border-t border-white/10">
               <button onClick={() => setSelectedPillar(null)}
-                className="px-5 py-2 rounded-full text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium">
+                className="px-4 sm:px-5 py-2 sm:py-2 rounded-full text-[10px] sm:text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium min-h-[40px]">
                 <span className="tracking-[0.08em]">關閉視窗</span>
               </button>
               <MagneticButton onClick={() => {
@@ -656,7 +656,7 @@ export default function App() {
                 const nextIndex = (currentIndex + 1) % aiPillars.length;
                 setSelectedPillar(aiPillars[nextIndex]);
               }}
-                className="px-5 py-2 rounded-full text-xs font-semibold bg-[#8BC34A] text-white hover:bg-[#7CB342] transition-all">
+                className="px-4 sm:px-5 py-2 sm:py-2 rounded-full text-[10px] sm:text-xs font-semibold bg-[#8BC34A] text-white hover:bg-[#7CB342] transition-all min-h-[40px]">
                 <span className="tracking-[0.08em]">了解下一項</span>
               </MagneticButton>
             </div>
@@ -665,101 +665,101 @@ export default function App() {
       )}
 
       {selectedPillar?.id === 'funding' && (
-        <div className="fixed inset-0 z-[150] flex items-start justify-center p-4 sm:p-8 pt-12 sm:pt-16 overflow-y-auto bg-black/90 backdrop-blur-lg">
-          <div className="relative bg-[#0a0a0b] border border-[#8BC34A]/20 rounded-3xl max-w-3xl w-full p-6 sm:p-10 shadow-2xl animate-in fade-in zoom-in-95 duration-300 my-4" style={{ boxShadow: '0 0 60px rgba(139,195,74,0.06)' }}>
+        <div className="fixed inset-0 z-[150] flex items-start justify-center p-3 sm:p-8 pt-14 sm:pt-16 overflow-y-auto bg-black/90 backdrop-blur-lg">
+          <div className="relative bg-[#0a0a0b] border border-[#8BC34A]/20 rounded-2xl sm:rounded-3xl max-w-3xl w-full p-4 sm:p-10 shadow-2xl animate-in fade-in zoom-in-95 duration-300 my-4" style={{ boxShadow: '0 0 60px rgba(139,195,74,0.06)' }}>
             <button onClick={() => setSelectedPillar(null)}
-              className="absolute top-4 right-4 text-white/40 hover:text-white p-2 hover:bg-white/5 rounded-full transition-colors z-10">
-              <X size={20} />
+              className="absolute top-3 right-3 text-white/40 hover:text-white p-2 hover:bg-white/5 rounded-full transition-colors z-10">
+              <X size={18} />
             </button>
 
-            <div className="flex items-center gap-4 mb-8 border-b border-[#8BC34A]/10 pb-6">
-              <div className="p-3 rounded-2xl bg-[#8BC34A]/10 border border-[#8BC34A]/20">
-                <Sparkles className="text-[#8BC34A]" size={28} />
+            <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-8 border-b border-[#8BC34A]/10 pb-4 sm:pb-6">
+              <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-[#8BC34A]/10 border border-[#8BC34A]/20">
+                <Sparkles className="text-[#8BC34A]" size={22} />
               </div>
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#8BC34A] font-bold">新會商會中學 · AI 教育</span>
-                <h3 className="text-xl sm:text-2xl font-semibold text-white mt-0.5">「智」啟學教 50萬撥款 — 執行藍圖</h3>
+              <div className="min-w-0">
+                <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[#8BC34A] font-bold">新會商會中學 · AI 教育</span>
+                <h3 className="text-base sm:text-2xl font-semibold text-white mt-0.5">「智」啟學教 50萬撥款 — 執行藍圖</h3>
               </div>
             </div>
 
             <div className="flex flex-col items-center">
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full relative">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 w-full relative">
                 <div className="flex-1 relative flex flex-col items-center">
-                  <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#8BC34A]/10 border border-[#8BC34A]/20 text-sm font-bold text-white mb-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#8BC34A]/10 border border-[#8BC34A]/20 text-xs sm:text-sm font-bold text-white mb-2 sm:mb-3">
                     <span>🛠️</span> 採購與工具
                   </div>
-                  <div className="w-full space-y-2 relative pl-4 border-l-2 border-[#8BC34A]/20">
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 1 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
+                  <div className="w-full space-y-1.5 sm:space-y-2 relative pl-3 sm:pl-4 border-l-2 border-[#8BC34A]/20">
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 1 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-[#8BC34A]">軟件/平台</span>
-                          <span className="text-[9px] text-[#8BC34A]/60 font-mono">40-50%</span>
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#8BC34A]">軟件/平台</span>
+                          <span className="text-[8px] sm:text-[9px] text-[#8BC34A]/60 font-mono">40-50%</span>
                         </div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">訂閱生成式 AI（教育版）及 Canva Pro 等學科專用工具</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">訂閱生成式 AI（教育版）及 Canva Pro</div>
                       </div>
                     </div>
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 2 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 2 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-[#8BC34A]">硬件</span>
-                          <span className="text-[9px] text-[#8BC34A]/60 font-mono">20-30%</span>
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#8BC34A]">硬件</span>
+                          <span className="text-[8px] sm:text-[9px] text-[#8BC34A]/60 font-mono">20-30%</span>
                         </div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">micro:bit V2 + AI 鏡頭 / Raspberry Pi AI 套件</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">micro:bit V2 + AI 鏡頭 / Pi AI</div>
                       </div>
                     </div>
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 3 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#8BC34A]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#8BC34A]/5 border ${spotlightCycle === 3 ? 'spotlight-active' : 'border-[#8BC34A]/10'}`}>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-[#8BC34A]">外間方案</span>
-                          <span className="text-[9px] text-[#8BC34A]/60 font-mono">20%</span>
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#8BC34A]">外間方案</span>
+                          <span className="text-[8px] sm:text-[9px] text-[#8BC34A]/60 font-mono">20%</span>
                         </div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">教師 AI 工作坊（備課與批改）2-3 場</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">教師 AI 工作坊（備課與批改）2-3 場</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex-1 relative flex flex-col items-center">
-                  <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#9CCC65]/10 border border-[#9CCC65]/20 text-sm font-bold text-white mb-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#9CCC65]/10 border border-[#9CCC65]/20 text-xs sm:text-sm font-bold text-white mb-2 sm:mb-3">
                     <span>📚</span> 學科推行
                   </div>
-                  <div className="w-full space-y-2 relative pl-4 border-l-2 border-[#9CCC65]/20">
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#9CCC65]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#9CCC65]/5 border ${spotlightCycle === 4 ? 'spotlight-active' : 'border-[#9CCC65]/15'}`}>
-                        <div className="text-xs font-semibold text-[#9CCC65] mb-1">語文科 · 中一至中二</div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">AI 寫作構思 + AI 會話夥伴</div>
+                  <div className="w-full space-y-1.5 sm:space-y-2 relative pl-3 sm:pl-4 border-l-2 border-[#9CCC65]/20">
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#9CCC65]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#9CCC65]/5 border ${spotlightCycle === 4 ? 'spotlight-active' : 'border-[#9CCC65]/15'}`}>
+                        <div className="text-[10px] sm:text-xs font-semibold text-[#9CCC65] mb-1">語文科 · 中一至中二</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">AI 寫作構思 + AI 會話夥伴</div>
                       </div>
                     </div>
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#66BB6A]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#66BB6A]/5 border ${spotlightCycle === 5 ? 'spotlight-active' : 'border-[#66BB6A]/15'}`}>
-                        <div className="text-xs font-semibold text-[#66BB6A] mb-1">科學/ICT · 中二至中三</div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">Teachable Machine + micro:bit 硬件</div>
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#66BB6A]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#66BB6A]/5 border ${spotlightCycle === 5 ? 'spotlight-active' : 'border-[#66BB6A]/15'}`}>
+                        <div className="text-[10px] sm:text-xs font-semibold text-[#66BB6A] mb-1">科學/ICT · 中二至中三</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">Teachable Machine + micro:bit</div>
                       </div>
                     </div>
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-[#81C784]/20">
-                      <div className={`node-glow p-3 rounded-lg bg-[#81C784]/5 border ${spotlightCycle === 6 ? 'spotlight-active' : 'border-[#81C784]/15'}`}>
-                        <div className="text-xs font-semibold text-[#81C784] mb-1">視藝/地理 · 中一及中三</div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">AI 繪圖倫理 + 氣候模擬</div>
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-[#81C784]/20">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-[#81C784]/5 border ${spotlightCycle === 6 ? 'spotlight-active' : 'border-[#81C784]/15'}`}>
+                        <div className="text-[10px] sm:text-xs font-semibold text-[#81C784] mb-1">視藝/地理 · 中一及中三</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">AI 繪圖倫理 + 氣候模擬</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex-1 relative flex flex-col items-center">
-                  <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-sm font-bold text-white mb-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white/10 border border-white/20 text-xs sm:text-sm font-bold text-white mb-2 sm:mb-3">
                     <span>🎯</span> 學生活動
                   </div>
-                  <div className="w-full space-y-2 relative pl-4 border-l-2 border-white/15">
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-white/15">
-                      <div className={`node-glow p-3 rounded-lg bg-white/[0.03] border ${spotlightCycle === 7 ? 'spotlight-active' : 'border-white/10'}`}>
-                        <div className="text-xs font-semibold text-white mb-1">AI Prompt 創意大賽</div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">全校「Prompt Master」爭霸戰</div>
+                  <div className="w-full space-y-1.5 sm:space-y-2 relative pl-3 sm:pl-4 border-l-2 border-white/15">
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-white/15">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-white/[0.03] border ${spotlightCycle === 7 ? 'spotlight-active' : 'border-white/10'}`}>
+                        <div className="text-[10px] sm:text-xs font-semibold text-white mb-1">AI Prompt 創意大賽</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">全校「Prompt Master」爭霸戰</div>
                       </div>
                     </div>
-                    <div className="relative pl-4 before:content-[''] before:absolute before:left-[-16px] before:top-1/2 before:w-4 before:h-[2px] before:bg-white/15">
-                      <div className={`node-glow p-3 rounded-lg bg-white/[0.03] border ${spotlightCycle === 8 ? 'spotlight-active' : 'border-white/10'}`}>
-                        <div className="text-xs font-semibold text-white mb-1">AI 智能產品設計日</div>
-                        <div className="text-[10px] text-white/40 leading-relaxed">AI Boot Camp · 社區問題解決</div>
+                    <div className="relative pl-3 sm:pl-4 before:content-[''] before:absolute before:left-[-12px] sm:before:left-[-16px] before:top-1/2 before:w-3 sm:before:w-4 before:h-[2px] before:bg-white/15">
+                      <div className={`node-glow p-2 sm:p-3 rounded-lg bg-white/[0.03] border ${spotlightCycle === 8 ? 'spotlight-active' : 'border-white/10'}`}>
+                        <div className="text-[10px] sm:text-xs font-semibold text-white mb-1">AI 智能產品設計日</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40 leading-relaxed">AI Boot Camp · 社區問題解決</div>
                       </div>
                     </div>
                   </div>
@@ -767,9 +767,9 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-end mt-10 pt-6 border-t border-[#8BC34A]/10">
+            <div className="flex gap-2 sm:gap-3 justify-end mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-[#8BC34A]/10">
               <button onClick={() => setSelectedPillar(null)}
-                className="px-5 py-2.5 rounded-full text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium">
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium min-h-[40px]">
                 <span className="tracking-[0.08em]">關閉視窗</span>
               </button>
               <MagneticButton onClick={() => {
@@ -777,7 +777,7 @@ export default function App() {
                 const nextIndex = (currentIndex + 1) % aiPillars.length;
                 setSelectedPillar(aiPillars[nextIndex]);
               }}
-                className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#8BC34A] text-white hover:bg-[#7CB342] transition-all">
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-semibold bg-[#8BC34A] text-white hover:bg-[#7CB342] transition-all min-h-[40px]">
                 <span className="tracking-[0.08em]">了解下一項</span>
               </MagneticButton>
             </div>
@@ -786,41 +786,41 @@ export default function App() {
       )}
 
       {selectedPillar?.id === 'assistant' && (
-        <div className="fixed inset-0 z-[150] flex items-start justify-center p-4 sm:p-8 pt-12 sm:pt-16 overflow-y-auto bg-black/90 backdrop-blur-lg">
-          <div className="relative bg-[#0a0a0b] border border-[#81C784]/20 rounded-3xl max-w-3xl w-full p-6 sm:p-10 shadow-2xl animate-in fade-in zoom-in-95 duration-300 my-4">
+        <div className="fixed inset-0 z-[150] flex items-start justify-center p-3 sm:p-8 pt-14 sm:pt-16 overflow-y-auto bg-black/90 backdrop-blur-lg">
+          <div className="relative bg-[#0a0a0b] border border-[#81C784]/20 rounded-2xl sm:rounded-3xl max-w-3xl w-full p-4 sm:p-10 shadow-2xl animate-in fade-in zoom-in-95 duration-300 my-4">
             <button onClick={() => setSelectedPillar(null)}
-              className="absolute top-4 right-4 text-white/40 hover:text-white p-2 hover:bg-white/5 rounded-full transition-colors z-10">
-              <X size={20} />
+              className="absolute top-3 right-3 text-white/40 hover:text-white p-2 hover:bg-white/5 rounded-full transition-colors z-10">
+              <X size={18} />
             </button>
 
-            <div className="flex items-center gap-4 mb-6 border-b border-[#81C784]/10 pb-5">
-              <div className="p-3 rounded-2xl bg-[#81C784]/10 border border-[#81C784]/20">
-                <Bot className="text-[#81C784]" size={28} />
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 border-b border-[#81C784]/10 pb-3 sm:pb-5">
+              <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-[#81C784]/10 border border-[#81C784]/20">
+                <Bot className="text-[#81C784]" size={22} />
               </div>
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#81C784] font-bold">新會商會中學 · AI 教育</span>
-                <h3 className="text-xl sm:text-2xl font-semibold text-white mt-0.5">BAFS 商業大亨 — AI 輔助學習工具</h3>
+              <div className="min-w-0">
+                <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[#81C784] font-bold">新會商會中學 · AI 教育</span>
+                <h3 className="text-base sm:text-2xl font-semibold text-white mt-0.5">BAFS 商業大亨 — AI 輔助學習工具</h3>
               </div>
             </div>
 
-            <p className="text-white/60 text-xs leading-relaxed mb-6 tracking-[0.05em]">
+            <p className="text-white/60 text-[10px] sm:text-xs leading-relaxed mb-4 sm:mb-6 tracking-[0.05em]">
               「BAFS 商業大亨」是一款結合了香港中學文憑試「企會財 (BAFS)」學科知識與大富翁 (Monopoly) 玩法的教育型桌遊。
             </p>
 
-            <div className="relative w-full rounded-xl mb-6 bg-black/40 border border-white/5">
+            <div className="relative w-full rounded-xl mb-4 sm:mb-6 bg-black/40 border border-white/5">
               <img
                 src={gameImages[gameImg]}
                 alt="BAFS 商業大亨"
-                className="w-full h-auto max-h-[55vh] object-contain mx-auto transition-opacity duration-500"
+                className="w-full h-auto max-h-[50vh] sm:max-h-[55vh] object-contain mx-auto transition-opacity duration-500"
               />
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
                 {gameImages.map((_, i) => (
-                  <span key={i} className={`w-2 h-2 rounded-full transition-all ${i === gameImg ? 'bg-[#81C784] w-4' : 'bg-white/30'}`} />
+                  <span key={i} className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all ${i === gameImg ? 'bg-[#81C784] w-3 sm:w-4' : 'bg-white/30'}`} />
                 ))}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2.5 mb-4 sm:mb-6">
               {[
                 { icon: '🏢', label: '企業收購', sub: '一般地產' },
                 { icon: '🎲', label: '機遇與風險', sub: '機會/命運' },
@@ -831,17 +831,17 @@ export default function App() {
                 { icon: '🏦', label: '銀行中心', sub: '' },
                 { icon: '🔨', label: '打工', sub: '' },
               ].map((item, i) => (
-                <div key={i} className="p-3 rounded-xl bg-[#81C784]/5 border border-[#81C784]/15 text-center hover:bg-[#81C784]/10 hover:border-[#81C784]/30 transition-all cursor-default">
-                  <div className="text-lg mb-1">{item.icon}</div>
-                  <div className="text-xs font-semibold text-white">{item.label}</div>
-                  {item.sub && <div className="text-[9px] text-white/40 mt-0.5">{item.sub}</div>}
+                <div key={i} className="p-1.5 sm:p-3 rounded-lg sm:rounded-xl bg-[#81C784]/5 border border-[#81C784]/15 text-center hover:bg-[#81C784]/10 hover:border-[#81C784]/30 transition-all cursor-default">
+                  <div className="text-sm sm:text-lg mb-0.5 sm:mb-1">{item.icon}</div>
+                  <div className="text-[9px] sm:text-xs font-semibold text-white">{item.label}</div>
+                  {item.sub && <div className="text-[7px] sm:text-[9px] text-white/40 mt-0.5">{item.sub}</div>}
                 </div>
               ))}
             </div>
 
-            <div className="flex gap-3 justify-end pt-5 border-t border-[#81C784]/10">
+            <div className="flex gap-2 sm:gap-3 justify-end pt-3 sm:pt-5 border-t border-[#81C784]/10">
               <button onClick={() => setSelectedPillar(null)}
-                className="px-5 py-2.5 rounded-full text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium">
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all font-medium min-h-[40px]">
                 <span className="tracking-[0.08em]">關閉視窗</span>
               </button>
               <MagneticButton onClick={() => {
@@ -849,7 +849,7 @@ export default function App() {
                 const nextIndex = (currentIndex + 1) % aiPillars.length;
                 setSelectedPillar(aiPillars[nextIndex]);
               }}
-                className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#81C784] text-white hover:bg-[#66BB6A] transition-all">
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-semibold bg-[#81C784] text-white hover:bg-[#66BB6A] transition-all min-h-[40px]">
                 <span className="tracking-[0.08em]">了解下一項</span>
               </MagneticButton>
             </div>
