@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 import bgImage from '../2.png';
 import img3 from '../3.png';
 import img4 from '../4.png';
 import img5 from '../5.png';
 import img6 from '../6.png';
 
-/* ─── Scroll animation hook ─── */
+/* ─── Scroll animation ─── */
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -52,12 +51,6 @@ const Stylesheet = () => (
     }
     .fade-up { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-    @keyframes fadeUpScale {
-      0% { opacity: 0; transform: translateY(30px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .fade-up-scale { animation: fadeUpScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
     @keyframes charReveal {
       0% { opacity: 0; transform: scale(0.1); }
       100% { opacity: 1; transform: scale(1); }
@@ -67,13 +60,19 @@ const Stylesheet = () => (
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    @keyframes inkLine {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+    .ink-line { animation: inkLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
     @media (prefers-reduced-motion: reduce) {
-      .mist, .char-type, .seal-in, .fade-up, .fade-up-scale, .ink-in { animation: none; }
+      .mist, .char-type, .seal-in, .fade-up, .ink-in, .ink-line { animation: none !important; }
     }
   `}</style>
 );
 
-/* ─── Particle Canvas ─── */
+/* ─── Particles ─── */
 function InkParticles() {
   const ref = useRef(null);
   const pRef = useRef([]);
@@ -163,7 +162,7 @@ function InkReveal({ image, cx, cy, vel }) {
   );
 }
 
-/* ─── Mountains SVG ─── */
+/* ─── Mountains ─── */
 function InkMountains() {
   return (
     <svg className="absolute bottom-0 left-0 w-full h-[40%] z-20 pointer-events-none opacity-20" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice">
@@ -178,21 +177,30 @@ function InkMountains() {
 }
 
 /* ─── Seal ─── */
-function Seal({ text, size = 52 }) {
+function Seal({ text, size = 52, className = '' }) {
   return (
-    <div className="seal-in inline-flex items-center justify-center border-2 border-[#C41E3A]"
-      style={{ width: size, height: size, fontSize: size * 0.32, color: '#C41E3A', lineHeight: 1.2 }}>
+    <div className={`seal-in inline-flex items-center justify-center ${className}`}
+      style={{ width: size, height: size, fontSize: size * 0.32, border: '2px solid #C41E3A', color: '#C41E3A', lineHeight: 1.2, fontFamily: "'Noto Serif SC', 'PingFang HK', serif" }}>
       {text}
     </div>
   );
 }
 
-/* ─── Animated section wrapper ─── */
+/* ─── Section divider ─── */
+function SectionDivider() {
+  return (
+    <div className="max-w-6xl mx-auto">
+      <div className="w-16 h-px bg-[#333]/10 mx-auto" />
+    </div>
+  );
+}
+
+/* ─── Scroll section ─── */
 function ScrollSection({ children, className = '' }) {
   const [ref, inView] = useInView(0.1);
   return (
     <section ref={ref} className={className}
-      style={{ opacity: 0, transform: 'translateY(30px)', transition: 'opacity 0.8s ease, transform 0.8s ease', ...(inView ? { opacity: 1, transform: 'translateY(0)' } : {}) }}>
+      style={{ opacity: 0, transform: 'translateY(35px)', transition: 'opacity 0.7s ease, transform 0.7s ease', ...(inView ? { opacity: 1, transform: 'translateY(0)' } : {}) }}>
       {children}
     </section>
   );
@@ -203,20 +211,19 @@ const sections = [
   {
     id: 'funding', num: '01', title: '智啟學教', subtitle: '五十萬撥款',
     desc: '榮獲政府「智啟學教」50萬港元專項撥款，用於校園AI算力設備、智能化教室及創新教材開發。',
-    long: '榮獲政府「智啟學教」50萬港元專項撥款，用於校園AI算力設備、智能化教室及創新教材開發，為全校師生提供一流人工智能硬件環境。',
-    color: '#1a1a1a', seal: '撥款',
+    seal: '撥款',
     columns: [
-      { title: '🛠 採購與工具', items: [
-        { label: '軟件/平台', sub: 'AI教育版 · Canva Pro', pct: '40-50%' },
+      { title: '採購與工具', items: [
+        { label: '軟件 / 平台', sub: 'AI教育版 · Canva Pro', pct: '40-50%' },
         { label: '硬件', sub: 'micro:bit · Pi AI 套件', pct: '20-30%' },
         { label: '外間方案', sub: '教師 AI 工作坊', pct: '20%' },
       ]},
-      { title: '📚 學科推行', items: [
+      { title: '學科推行', items: [
         { label: '語文科', sub: 'AI寫作構思 + AI會話' },
-        { label: '科學/ICT', sub: 'Teachable Machine' },
-        { label: '視藝/地理', sub: 'AI繪圖 · 氣候模擬' },
+        { label: '科學 / ICT', sub: 'Teachable Machine' },
+        { label: '視藝 / 地理', sub: 'AI繪圖 · 氣候模擬' },
       ]},
-      { title: '🎯 學生活動', items: [
+      { title: '學生活動', items: [
         { label: 'Prompt 創意大賽', sub: '全校爭霸戰' },
         { label: 'AI 產品設計日', sub: 'Boot Camp' },
       ]},
@@ -225,8 +232,7 @@ const sections = [
   {
     id: 'genai', num: '02', title: '生成式 AI', subtitle: '跨學科應用',
     desc: '在語文寫作、科學探究及藝術創作中全面引入生成式AI助手，引導學生掌握提問技巧，學會與AI協同解決現實問題。',
-    long: '在語文寫作、科學探究及藝術創作中全面引入生成式AI助手。引導學生掌握提問技巧（Prompt Engineering），學會與AI協同解決現實問題。',
-    color: '#444', seal: 'AI',
+    seal: 'AI',
     subjects: [
       { icon: '✍️', label: '語文寫作', items: ['AI 寫作構思', 'AI 會話夥伴', '文章潤飾'] },
       { icon: '🔬', label: '科學探究', items: ['Teachable Machine', '數據分析', '實驗模擬'] },
@@ -235,15 +241,13 @@ const sections = [
   },
   {
     id: 'vibecoding', num: '03', title: 'Vibe Coding', subtitle: '以自然語言寫程式',
-    desc: '引進前沿Vibe Coding模式。學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。',
-    long: '引進前沿Vibe Coding模式。學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型，專注力從語法解放至邏輯思維。',
-    color: '#2E8B57', seal: 'VC',
+    desc: '引進前沿Vibe Coding模式，學生無需死記語法，以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。',
+    seal: 'VC',
   },
   {
     id: 'assistant', num: '04', title: 'AI 輔助學習', subtitle: '全天候個性化導師',
     desc: '全天候在線課業輔助學習系統，針對每位學生的作答與弱點進行溫和、漸進式拆解引導，提供真正因材施教的一對一教學輔導。',
-    long: '全天候在線課業輔助學習系統，針對每位學生的作答與弱點進行溫和、漸進式拆解引導，提供真正因材施教的一對一教學輔導。',
-    color: '#8B4513', seal: '輔助',
+    seal: '輔助',
   },
 ];
 
@@ -251,7 +255,6 @@ export default function App() {
   const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
   const [typingStep, setTypingStep] = useState(0);
   const [gameImg, setGameImg] = useState(0);
-  const [selectedPillar, setSelectedPillar] = useState(null);
 
   const mouse = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const prev = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
@@ -285,55 +288,42 @@ export default function App() {
   const gameImages = [img3, img4, img5, img6];
   useEffect(() => { const t = setInterval(() => setGameImg(p => (p + 1) % gameImages.length), 3500); return () => clearInterval(t); }, []);
 
-  /* ─── Funding Modal ─── */
-  const [spotlightCycle, setSpotlightCycle] = useState(0);
-  useEffect(() => {
-    if (selectedPillar?.id !== 'funding') { setSpotlightCycle(0); return; }
-    const t = setTimeout(() => setSpotlightCycle(1), 300); return () => clearTimeout(t);
-  }, [selectedPillar]);
-  useEffect(() => {
-    if (spotlightCycle === 0) { const t = setTimeout(() => setSpotlightCycle(1), 3500); return () => clearTimeout(t); }
-    const t = setTimeout(() => setSpotlightCycle(p => p >= 8 ? 0 : p + 1), 2200);
-    return () => clearTimeout(t);
-  }, [spotlightCycle]);
-
   return (
     <div className="min-h-screen bg-[#F8F5F0] text-[#1a1a1a] relative overflow-x-hidden"
-      style={{ fontFamily: "'Ma Shan Zheng', 'PingFang HK', cursive", letterSpacing: '0.06em' }}>
+      style={{ fontFamily: "'Noto Serif SC', 'PingFang HK', serif", letterSpacing: '0.04em', fontWeight: 300 }}>
       <Stylesheet />
       <InkParticles />
 
       {/* Paper texture */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.012]"
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.015]"
         style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(0,0,0,0.03) 1px, transparent 1px), radial-gradient(circle at 80% 20%, rgba(0,0,0,0.02) 1px, transparent 1px)', backgroundSize: '40px 40px, 60px 60px' }} />
 
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-4 sm:px-10 py-3 bg-gradient-to-b from-[#F8F5F0]/90 to-transparent">
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-4 sm:px-10 py-3 bg-gradient-to-b from-[#F8F5F0]/95 to-transparent">
         <div className="flex items-center gap-3">
-          <Seal text="SWCSSS" size={38} />
-          <span className="text-xs sm:text-sm text-[#444]">新會商會中學</span>
+          <Seal text="SWS" size={36} />
+          <span className="text-[11px] text-[#666]">新會商會中學</span>
         </div>
-        <div className="hidden md:flex items-center gap-5 text-sm tracking-[0.08em]">
-          <a href="#hero" className="text-[#555] hover:text-[#1a1a1a] transition-colors">首頁</a>
+        <div className="hidden md:flex items-center gap-6 text-xs tracking-[0.15em] text-[#888]">
+          <a href="#hero" className="hover:text-[#333] transition-colors">首頁</a>
           {sections.map(s => (
-            <a key={s.id} href={'#' + s.id} className="text-[#555] hover:text-[#1a1a1a] transition-colors">{s.num} {s.title}</a>
+            <a key={s.id} href={'#' + s.id} className="hover:text-[#333] transition-colors">{s.num}</a>
           ))}
         </div>
       </nav>
 
-      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      {/* ════════ HERO ════════ */}
       <section id="hero" className="relative w-full overflow-hidden" style={{ height: '100dvh' }}>
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#F8F5F0] via-[#F5F0E8] to-[#E8E0D0]" />
         <InkMountains />
-        <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-15 mix-blend-multiply"
+        <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-[0.12] mix-blend-multiply"
           style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.8) brightness(1.4)' }} />
         <InkReveal image={bgImage} cx={cursorPos.x} cy={cursorPos.y} vel={vel} />
 
         <div className="absolute top-[22%] sm:top-[26%] left-0 right-0 flex flex-col items-center text-center px-4 pointer-events-none z-50">
-          <Seal text="AI" size={28} className="mb-2" />
+          <Seal text="AI" size={26} className="mb-3" />
           <h1 className="text-[#1a1a1a]">
-            <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none tracking-[0.06em]"
-              style={{ fontFamily: "'Ma Shan Zheng', cursive", fontWeight: 400 }}>
+            <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none" style={{ fontWeight: 300 }}>
               {typingText.split('').map((ch, i) => (
                 <span key={i} className="char-type" style={{
                   opacity: i < typingStep ? 1 : 0, transform: i < typingStep ? 'scale(1)' : 'scale(0.1)',
@@ -341,44 +331,47 @@ export default function App() {
               ))}
             </span>
           </h1>
-          <div className="mt-2 text-xs sm:text-sm text-[#666]" style={{ letterSpacing: '0.15em' }}>
+          <div className="mt-3 text-xs sm:text-sm text-[#888] tracking-[0.2em]">
             新會商會中學 · 人工智慧教育藍圖
           </div>
-          <div className="mt-4 w-2 h-2 rounded-full bg-[#C41E3A]/30" />
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#999] tracking-[0.2em] animate-pulse">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse">
           ↓ 向下探索
         </div>
       </section>
 
-      {/* ═══════════════════════ SECTION 01：智啟學教 ═══════════════════════ */}
-      <ScrollSection id="funding" className="py-20 sm:py-28 px-5 sm:px-12">
+      {/* ════════ SECTION 01：智啟學教 ════════ */}
+      <ScrollSection id="funding" className="py-24 sm:py-32 px-5 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-10">
-            <Seal text="撥款" size={48} />
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              <span className="text-xs text-[#bbb] tracking-[0.3em]">0 1</span>
+              <Seal text={sections[0].seal} size={46} />
+            </div>
             <div>
-              <span className="text-[10px] text-[#999] tracking-[0.2em]">{sections[0].num}</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] mt-1 mb-3"
-                style={{ fontFamily: "'Ma Shan Zheng', cursive", fontWeight: 400 }}>{sections[0].title}</h2>
-              <p className="text-xs sm:text-sm text-[#555] max-w-xl leading-relaxed">{sections[0].desc}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] leading-relaxed" style={{ fontWeight: 300 }}>
+                {sections[0].title}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#666] max-w-2xl leading-[2] mt-4">
+                {sections[0].desc}
+              </p>
             </div>
           </div>
 
-          {/* 3-column tree */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10"
+            style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
             {sections[0].columns.map((col, ci) => (
-              <div key={ci} className="border-t border-[#333]/10 pt-4">
-                <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{col.title}</div>
+              <div key={ci} className="p-5 sm:p-6 bg-[#F8F5F0]">
+                <div className="text-sm sm:text-base text-[#333] mb-5" style={{ fontWeight: 400 }}>{col.title}</div>
                 <div className="space-y-3">
                   {col.items.map((item, ii) => (
-                    <div key={ii} className="p-3 sm:p-4"
-                      style={{ border: '1px solid rgba(30,30,30,0.06)', background: 'rgba(30,30,30,0.02)' }}>
+                    <div key={ii} className="p-3 sm:p-4 bg-[#F5F2EC]">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs sm:text-sm text-[#333]">{item.label}</span>
-                        {item.pct && <span className="text-[9px] text-[#888]">{item.pct}</span>}
+                        <span className="text-xs sm:text-sm text-[#444]">{item.label}</span>
+                        {item.pct && <span className="text-[9px] text-[#999]">{item.pct}</span>}
                       </div>
-                      <div className="text-[10px] sm:text-xs text-[#666]">{item.sub}</div>
+                      <div className="text-[10px] sm:text-xs text-[#888]">{item.sub}</div>
                     </div>
                   ))}
                 </div>
@@ -388,30 +381,36 @@ export default function App() {
         </div>
       </ScrollSection>
 
-      {/* ═══════════════════════ SECTION 02：生成式 AI ═══════════════════════ */}
-      <ScrollSection id="genai" className="py-20 sm:py-28 px-5 sm:px-12" style={{ background: 'rgba(30,30,30,0.015)' }}>
+      <SectionDivider />
+
+      {/* ════════ SECTION 02：生成式 AI ════════ */}
+      <ScrollSection id="genai" className="py-24 sm:py-32 px-5 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-10">
-            <Seal text="AI" size={48} />
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              <span className="text-xs text-[#bbb] tracking-[0.3em]">0 2</span>
+              <Seal text={sections[1].seal} size={46} />
+            </div>
             <div>
-              <span className="text-[10px] text-[#999] tracking-[0.2em]">{sections[1].num}</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] mt-1 mb-3"
-                style={{ fontFamily: "'Ma Shan Zheng', cursive", fontWeight: 400 }}>{sections[1].title}</h2>
-              <p className="text-xs sm:text-sm text-[#555] max-w-xl leading-relaxed">{sections[1].desc}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] leading-relaxed" style={{ fontWeight: 300 }}>
+                {sections[1].title}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#666] max-w-2xl leading-[2] mt-4">
+                {sections[1].desc}
+              </p>
             </div>
           </div>
 
-          {/* 3 subjects */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10"
+            style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
             {sections[1].subjects.map((subj, i) => (
-              <div key={i} className="border border-[rgba(30,30,30,0.06)] p-5 sm:p-6"
-                style={{ background: 'rgba(30,30,30,0.02)' }}>
-                <div className="text-xl sm:text-2xl mb-2">{subj.icon}</div>
-                <div className="text-sm sm:text-base text-[#333] mb-3" style={{ fontFamily: "'Ma Shan Zheng', cursive" }}>{subj.label}</div>
-                <ul className="space-y-1.5">
+              <div key={i} className="p-5 sm:p-6 bg-[#F8F5F0]">
+                <div className="text-lg sm:text-xl mb-2">{subj.icon}</div>
+                <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{subj.label}</div>
+                <ul className="space-y-2">
                   {subj.items.map((item, j) => (
-                    <li key={j} className="text-[10px] sm:text-xs text-[#666] flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-[#333]/20 shrink-0" />
+                    <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
+                      <span className="w-0.5 h-0.5 bg-[#888] shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -422,60 +421,76 @@ export default function App() {
         </div>
       </ScrollSection>
 
-      {/* ═══════════════════════ SECTION 03：Vibe Coding ═══════════════════════ */}
-      <ScrollSection id="vibecoding" className="py-20 sm:py-28 px-5 sm:px-12">
+      <SectionDivider />
+
+      {/* ════════ SECTION 03：Vibe Coding ════════ */}
+      <ScrollSection id="vibecoding" className="py-24 sm:py-32 px-5 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-10">
-            <Seal text="VC" size={48} />
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              <span className="text-xs text-[#bbb] tracking-[0.3em]">0 3</span>
+              <Seal text={sections[2].seal} size={46} />
+            </div>
             <div>
-              <span className="text-[10px] text-[#999] tracking-[0.2em]">{sections[2].num}</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] mt-1 mb-3"
-                style={{ fontFamily: "'Ma Shan Zheng', cursive", fontWeight: 400 }}>{sections[2].title}</h2>
-              <p className="text-xs sm:text-sm text-[#555] max-w-xl leading-relaxed">{sections[2].desc}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] leading-relaxed" style={{ fontWeight: 300 }}>
+                {sections[2].title}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#666] max-w-2xl leading-[2] mt-4">
+                {sections[2].desc}
+              </p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start">
-            <div className="flex-1 space-y-3 text-xs sm:text-sm text-[#555] leading-relaxed">
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-stretch"
+            style={{ outline: '1px solid rgba(46,139,87,0.12)' }}>
+            <div className="flex-1 p-5 sm:p-6 bg-[#F8F5F0] space-y-4 text-xs sm:text-sm text-[#666] leading-[2]">
               <p>學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。</p>
               <p>專注力從語法解放至邏輯思維，真正實現「想法即程式」的教學理念。</p>
             </div>
-            <div className="flex-1 w-full p-4 sm:p-5 text-[11px] sm:text-xs leading-relaxed"
-              style={{ background: 'rgba(46,139,87,0.04)', border: '1px solid rgba(46,139,87,0.12)' }}>
-              <div className="flex items-center gap-2 text-[#2E8B57] mb-3 pb-2"
-                style={{ borderBottom: '1px solid rgba(46,139,87,0.1)' }}>
+            <div className="flex-1 p-5 sm:p-6 bg-[#2E8B57]/[0.03] text-[11px] sm:text-xs leading-relaxed"
+              style={{ borderLeft: '1px solid rgba(46,139,87,0.12)' }}>
+              <div className="flex items-center gap-2 text-[#2E8B57] mb-4 pb-3"
+                style={{ borderBottom: '1px solid rgba(46,139,87,0.12)' }}>
                 <span className="w-2 h-2 rounded-full bg-[#2E8B57] animate-pulse" />
-                <span style={{ fontFamily: "'Ma Shan Zheng', cursive" }}>Vibe Code</span>
+                <span>Vibe Code</span>
               </div>
-              <div className="text-[#555]"># 「建立一個校園圖書管理系統」</div>
-              <div className="text-[#888] mt-2">&gt; 正在生成應用程式…</div>
-              <div className="text-[#888]">&gt; 學生成功在課堂內完成開發。</div>
-              <div className="text-[#2E8B57] mt-2">&gt; ✓ 部署完成</div>
+              <div className="text-[#666] leading-[2]"># 「建立一個校園圖書管理系統」</div>
+              <div className="text-[#aaa] leading-[2]">&gt; 正在生成應用程式…</div>
+              <div className="text-[#aaa] leading-[2]">&gt; 學生成功在課堂內完成開發。</div>
+              <div className="text-[#2E8B57] mt-2 leading-[2]">&gt; ✓ 部署完成</div>
             </div>
           </div>
         </div>
       </ScrollSection>
 
-      {/* ═══════════════════════ SECTION 04：AI 輔助學習 ═══════════════════════ */}
-      <ScrollSection id="assistant" className="py-20 sm:py-28 px-5 sm:px-12" style={{ background: 'rgba(30,30,30,0.015)' }}>
+      <SectionDivider />
+
+      {/* ════════ SECTION 04：AI 輔助學習 ════════ */}
+      <ScrollSection id="assistant" className="py-24 sm:py-32 px-5 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-10">
-            <Seal text="輔助" size={48} />
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              <span className="text-xs text-[#bbb] tracking-[0.3em]">0 4</span>
+              <Seal text={sections[3].seal} size={46} />
+            </div>
             <div>
-              <span className="text-[10px] text-[#999] tracking-[0.2em]">{sections[3].num}</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] mt-1 mb-3"
-                style={{ fontFamily: "'Ma Shan Zheng', cursive", fontWeight: 400 }}>{sections[3].title}</h2>
-              <p className="text-xs sm:text-sm text-[#555] max-w-xl leading-relaxed">{sections[3].desc}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1a1a1a] leading-relaxed" style={{ fontWeight: 300 }}>
+                {sections[3].title}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#666] max-w-2xl leading-[2] mt-4">
+                {sections[3].desc}
+              </p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start">
-            <div className="flex-1">
-              <div className="mb-4 text-sm sm:text-base text-[#333]" style={{ fontFamily: "'Ma Shan Zheng', cursive" }}>
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
+            style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+            <div className="flex-1 p-5 sm:p-6 bg-[#F8F5F0]">
+              <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>
                 BAFS 商業大亨 — AI 輔助學習工具
               </div>
-              <p className="text-xs sm:text-sm text-[#555] leading-relaxed mb-4">
-                「BAFS 商業大亨」是一款結合了香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊。
+              <p className="text-xs sm:text-sm text-[#666] leading-[2] mb-5">
+                「BAFS 商業大亨」是一款結合了香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊，由校內師生共同設計。
               </p>
               <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
                 {[
@@ -484,23 +499,20 @@ export default function App() {
                   { icon: '🤝', label: '收購中心' }, { icon: '📈', label: '證券交易' },
                   { icon: '🏦', label: '銀行中心' }, { icon: '🔨', label: '打工' },
                 ].map((item, i) => (
-                  <div key={i} className="p-1.5 sm:p-2.5 text-center"
-                    style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
+                  <div key={i} className="p-2 sm:p-3 text-center bg-[#F5F2EC]">
                     <div className="text-sm sm:text-base mb-0.5">{item.icon}</div>
-                    <div className="text-[8px] sm:text-[10px] text-[#444]">{item.label}</div>
+                    <div className="text-[8px] sm:text-[10px] text-[#666]">{item.label}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex-1 w-full">
-              <div style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
-                <img src={gameImages[gameImg]} alt="BAFS 商業大亨"
-                  className="w-full h-auto max-h-[45vh] object-contain mx-auto transition-opacity duration-500" />
-              </div>
-              <div className="flex justify-center gap-2 mt-3">
+            <div className="flex-1 bg-[#F5F2EC]">
+              <img src={gameImages[gameImg]} alt="BAFS 商業大亨"
+                className="w-full h-auto max-h-[45vh] object-contain mx-auto transition-opacity duration-500" />
+              <div className="flex justify-center gap-2 py-3 bg-[#F5F2EC]">
                 {gameImages.map((_, i) => (
                   <span key={i}
-                    className={`rounded-full transition-all ${i === gameImg ? 'bg-[#333] w-4' : 'bg-[#ccc]'} w-1.5 h-1.5 sm:w-2 sm:h-2 cursor-pointer`}
+                    className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'bg-[#333] w-4 h-1.5' : 'bg-[#ccc] w-1.5 h-1.5'}`}
                     onClick={() => setGameImg(i)} />
                 ))}
               </div>
@@ -510,11 +522,12 @@ export default function App() {
       </ScrollSection>
 
       {/* Footer */}
-      <footer className="py-12 sm:py-16 px-5 text-center" style={{ borderTop: '1px solid rgba(30,30,30,0.06)' }}>
+      <footer className="py-16 sm:py-20 px-5 text-center"
+        style={{ borderTop: '1px solid rgba(30,30,30,0.06)' }}>
         <div className="max-w-6xl mx-auto">
-          <Seal text="SWCSSS" size={36} className="mx-auto mb-4" />
-          <div className="text-[11px] sm:text-xs text-[#888] tracking-[0.12em]">
-            <span style={{ fontFamily: "'Ma Shan Zheng', cursive", fontSize: '0.9rem', color: '#555' }}>新會商會中學</span>
+          <Seal text="SWS" size={34} className="mx-auto mb-5" />
+          <div className="text-[11px] sm:text-xs text-[#aaa] tracking-[0.15em]">
+            <span>新會商會中學</span>
             <span className="mx-2">·</span>
             <span>人工智慧教育</span>
           </div>
