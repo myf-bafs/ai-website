@@ -207,6 +207,8 @@ function ScrollSection({ children, className = '' }) {
 }
 
 /* ─── Data ─── */
+const sectionBgs = ['bg-[#F8F5F0]', 'bg-[#F1F0EA]', 'bg-[#EEF0EC]', 'bg-[#F0EDE8]'];
+
 const sections = [
   {
     id: 'funding', num: '01', title: '智啟學教', subtitle: '五十萬撥款',
@@ -342,7 +344,7 @@ export default function App() {
       </section>
 
       {/* ════════ SECTION 01：智啟學教 ════════ */}
-      <ScrollSection id="funding" className="py-24 sm:py-32 px-5 sm:px-12">
+      <ScrollSection id="funding" className={`py-24 sm:py-32 px-5 sm:px-12 ${sectionBgs[0]}`}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
@@ -381,10 +383,8 @@ export default function App() {
         </div>
       </ScrollSection>
 
-      <SectionDivider />
-
       {/* ════════ SECTION 02：生成式 AI ════════ */}
-      <ScrollSection id="genai" className="py-24 sm:py-32 px-5 sm:px-12">
+      <ScrollSection id="genai" className={`py-24 sm:py-32 px-5 sm:px-12 ${sectionBgs[1]}`}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
@@ -421,10 +421,8 @@ export default function App() {
         </div>
       </ScrollSection>
 
-      <SectionDivider />
-
       {/* ════════ SECTION 03：Vibe Coding ════════ */}
-      <ScrollSection id="vibecoding" className="py-24 sm:py-32 px-5 sm:px-12">
+      <ScrollSection id="vibecoding" className={`py-24 sm:py-32 px-5 sm:px-12 ${sectionBgs[2]}`}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
@@ -463,10 +461,8 @@ export default function App() {
         </div>
       </ScrollSection>
 
-      <SectionDivider />
-
       {/* ════════ SECTION 04：AI 輔助學習 ════════ */}
-      <ScrollSection id="assistant" className="py-24 sm:py-32 px-5 sm:px-12">
+      <ScrollSection id="assistant" className={`py-24 sm:py-32 px-5 sm:px-12 ${sectionBgs[3]}`}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 items-start mb-12">
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
