@@ -8,6 +8,8 @@ import img6 from '../6.png';
 
 const Stylesheet = () => (
   <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=ZCOOL+XiaoWei&family=ZCOOL+KuaiLe&family=Noto+Serif+SC:wght@300;700&display=swap');
+
     html { scroll-behavior: smooth; }
 
     .font-草 { font-family: 'Liu Jian Mao Cao', cursive; }
