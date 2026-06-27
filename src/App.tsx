@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import bgImage from '../2.png';
 import img3 from '../3.png';
 import img4 from '../4.png';
@@ -20,6 +20,22 @@ function useInView(threshold = 0.15) {
     return () => obs.disconnect();
   }, [threshold]);
   return [ref, inView];
+}
+
+function useScrollProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    const fn = () => {
+      const hero = document.getElementById('hero');
+      if (!hero) return;
+      const r = hero.getBoundingClientRect();
+      setP(Math.max(0, Math.min(1, (window.innerHeight - r.top) / (window.innerHeight * 1.3))));
+    };
+    fn();
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+  return p;
 }
 
 const Stylesheet = () => (
@@ -60,14 +76,12 @@ const Stylesheet = () => (
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    @keyframes inkLine {
-      0% { width: 0; }
-      100% { width: 100%; }
+    .env-flap {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 55% 86%, 50% 93%, 45% 86%, 0 100%);
     }
-    .ink-line { animation: inkLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
     @media (prefers-reduced-motion: reduce) {
-      .mist, .char-type, .seal-in, .fade-up, .ink-in, .ink-line { animation: none !important; }
+      .mist, .char-type, .seal-in, .fade-up, .ink-in { animation: none !important; }
     }
   `}</style>
 );
@@ -257,6 +271,7 @@ export default function App() {
   const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
   const [typingStep, setTypingStep] = useState(0);
   const [gameImg, setGameImg] = useState(0);
+  const scrollP = useScrollProgress();
 
   const mouse = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const prev = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
@@ -314,15 +329,22 @@ export default function App() {
         </div>
       </nav>
 
-      {/* ════════ HERO ════════ */}
-      <section id="hero" className="relative w-full overflow-hidden" style={{ height: '100dvh' }}>
+      {/* ════════ HERO — ENVELOPE ════════ */}
+      <section id="hero" className="relative w-full overflow-hidden" style={{ height: '100dvh', perspective: '1200px' }}>
+        {/* Background */}
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#F8F5F0] via-[#F5F0E8] to-[#E8E0D0]" />
         <InkMountains />
         <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-[0.12] mix-blend-multiply"
           style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.8) brightness(1.4)' }} />
         <InkReveal image={bgImage} cx={cursorPos.x} cy={cursorPos.y} vel={vel} />
 
-        <div className="absolute top-[22%] sm:top-[26%] left-0 right-0 flex flex-col items-center text-center px-4 pointer-events-none z-50">
+        {/* Letter content — revealed as envelope opens */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
+          style={{
+            opacity: scrollP,
+            transform: `translateY(${(1 - scrollP) * 60}px)`,
+            transition: 'opacity 0.15s, transform 0.15s',
+          }}>
           <Seal text="AI" size={26} className="mb-3" />
           <h1 className="text-[#1a1a1a]">
             <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none" style={{ fontWeight: 300 }}>
@@ -338,8 +360,51 @@ export default function App() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse">
-          ↓ 向下探索
+        {/* Envelope flap */}
+        <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none"
+          style={{
+            height: '58%',
+            transform: `translateY(${-scrollP * 58}%)`,
+            transition: 'transform 0.3s ease-out',
+          }}>
+          <div className="env-flap w-full h-full bg-[#F8F5F0]"
+            style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+            {/* Envelope front design */}
+            <div className="w-full h-full flex flex-col items-center justify-start pt-14 sm:pt-20"
+              style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
+              {/* Stamp area */}
+              <div className="absolute top-5 right-6 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#333]/15 flex items-center justify-center">
+                <span className="text-[6px] text-[#aaa] tracking-[0.1em]">AIR MAIL</span>
+              </div>
+              {/* Return address */}
+              <div className="absolute top-8 left-6 text-left">
+                <div className="text-[8px] text-[#aaa] tracking-[0.1em]">回 件 地 址</div>
+                <div className="text-[10px] text-[#888] mt-1" style={{ fontWeight: 400 }}>新會商會中學</div>
+                <div className="text-[8px] text-[#999] mt-0.5">SWCSSS</div>
+              </div>
+              {/* Center envelope line */}
+              <div className="w-full max-w-[60%] h-px bg-[#333]/8 mt-auto mb-12 sm:mb-16" />
+            </div>
+          </div>
+        </div>
+
+        {/* Wax seal — sits at the V-point, fades & shrinks as flap lifts */}
+        <div className="absolute z-50 pointer-events-none" style={{
+          top: 'calc(58% - 18px)',
+          left: '50%',
+          transform: `translateX(-50%) scale(${1 - scrollP * 0.6})`,
+          opacity: 1 - scrollP,
+          transition: 'opacity 0.2s, transform 0.3s',
+        }}>
+          <div className="seal-in w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
+            <span className="text-white text-[8px] sm:text-[10px] tracking-[0.1em]">SWS</span>
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse"
+          style={{ opacity: 1 - scrollP }}>
+          ↓ 拉開信封
         </div>
       </section>
 
