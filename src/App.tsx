@@ -268,14 +268,16 @@ export default function App() {
             </div>
           </div>
         </div>
-        <a href="https://myf-swcs.free.nf/index.php" target="_blank" rel="noopener noreferrer"
-          className="block mt-6 group" style={{ outline: '1px solid #d5d0c8' }}>
-          <img src="/bafs-study-shot.png" alt="BAFS 溫習系統"
-            className="w-full h-auto transition-opacity duration-500 group-hover:opacity-80" />
-          <div className="py-3 text-center text-sm text-[#888] bg-white" style={{ borderTop: '1px solid #eee' }}>
-            BAFS 溫習系統 →
+        <div className="flex flex-col sm:flex-row mt-8" style={{ outline: '1px solid #d5d0c8' }}>
+          <div className="flex-1 p-6 sm:p-8 bg-white">
+            <p className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>BAFS 溫習系統</p>
+            <p className="text-sm sm:text-base text-[#555] leading-[2] mb-5">一站式 BAFS 網上溫習平台，涵蓋企業會計財務概論各單元，提供模擬試題、概念圖解及即時答案核對功能，助學生高效備戰文憑試。</p>
           </div>
-        </a>
+          <a href="https://myf-swcs.free.nf/index.php" target="_blank" rel="noopener noreferrer" className="flex-1 block group" style={{ borderLeft: '1px solid #d5d0c8' }}>
+            <img src="/bafs-study-shot.png" alt="BAFS 溫習系統" className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-80" />
+            <div className="py-3 text-center text-sm text-[#888] bg-white" style={{ borderTop: '1px solid #eee' }}>BAFS 溫習系統 →</div>
+          </a>
+        </div>
       </Section>
 
       <footer className="py-14 px-5 text-center" style={{ borderTop: '1px solid #d5d0c8' }}>
