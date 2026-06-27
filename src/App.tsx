@@ -77,7 +77,7 @@ const Stylesheet = () => (
     }
 
     .env-flap {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 55% 86%, 50% 93%, 45% 86%, 0 100%);
+      clip-path: polygon(0 12%, 45% 7%, 50% 0%, 55% 7%, 100% 12%, 100% 100%, 0 100%);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -338,11 +338,11 @@ export default function App() {
           style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.8) brightness(1.4)' }} />
         <InkReveal image={bgImage} cx={cursorPos.x} cy={cursorPos.y} vel={vel} />
 
-        {/* Letter content — revealed as envelope opens */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-end pb-16 sm:pb-24 text-center px-4 pointer-events-none"
+        {/* Letter content — at top, revealed as bottom flap slides down */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pt-20 sm:pt-28 text-center px-4 pointer-events-none"
           style={{
             opacity: scrollP,
-            transform: `translateY(${(1 - scrollP) * 60}px)`,
+            transform: `translateY(${-(1 - scrollP) * 40}px)`,
             transition: 'opacity 0.15s, transform 0.15s',
           }}>
           <Seal text="AI" size={26} className="mb-3" />
@@ -360,37 +360,37 @@ export default function App() {
           </div>
         </div>
 
-        {/* Envelope flap */}
-        <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none"
+        {/* Envelope flap — at bottom, slides down on scroll */}
+        <div className="absolute bottom-0 left-0 right-0 z-40 pointer-events-none"
           style={{
-            height: '58%',
-            transform: `translateY(${-scrollP * 58}%)`,
+            height: '62%',
+            transform: `translateY(${scrollP * 62}%)`,
             transition: 'transform 0.3s ease-out',
           }}>
           <div className="env-flap w-full h-full bg-[#F8F5F0]"
-            style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+            style={{ boxShadow: '0 -1px 2px rgba(0,0,0,0.04)' }}>
             {/* Envelope front design */}
-            <div className="w-full h-full flex flex-col items-center justify-start pt-14 sm:pt-20"
+            <div className="w-full h-full flex flex-col items-center justify-end pb-14 sm:pb-20"
               style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
               {/* Stamp area */}
-              <div className="absolute top-5 right-6 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#333]/15 flex items-center justify-center">
+              <div className="absolute bottom-5 right-6 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#333]/15 flex items-center justify-center">
                 <span className="text-[6px] text-[#aaa] tracking-[0.1em]">AIR MAIL</span>
               </div>
               {/* Return address */}
-              <div className="absolute top-8 left-6 text-left">
+              <div className="absolute bottom-8 left-6 text-left">
                 <div className="text-[8px] text-[#aaa] tracking-[0.1em]">回 件 地 址</div>
                 <div className="text-[10px] text-[#888] mt-1" style={{ fontWeight: 400 }}>新會商會中學</div>
                 <div className="text-[8px] text-[#999] mt-0.5">SWCSSS</div>
               </div>
               {/* Center envelope line */}
-              <div className="w-full max-w-[60%] h-px bg-[#333]/8 mt-auto mb-12 sm:mb-16" />
+              <div className="w-full max-w-[60%] h-px bg-[#333]/8 mt-12 sm:mt-16" />
             </div>
           </div>
         </div>
 
-        {/* Wax seal — sits at the V-point, fades & shrinks as flap lifts */}
+        {/* Wax seal — at V-point (top of bottom flap) */}
         <div className="absolute z-50 pointer-events-none" style={{
-          top: 'calc(58% - 18px)',
+          top: 'calc(38% - 18px)',
           left: '50%',
           transform: `translateX(-50%) scale(${1 - scrollP * 0.6})`,
           opacity: 1 - scrollP,
@@ -402,9 +402,9 @@ export default function App() {
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse"
+        <div className="absolute bottom-[62%] left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse"
           style={{ opacity: 1 - scrollP }}>
-          ↓ 拉開信封
+          ↓ 打開信封
         </div>
       </section>
 
