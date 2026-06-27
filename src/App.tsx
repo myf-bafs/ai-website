@@ -109,8 +109,8 @@ export default function App() {
         {/* Letter content */}
         <div className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: opened ? 1 : 0, transition: 'opacity 0.8s ease 0.3s' }}>
           <div className="text-center px-4">
-            <div className="w-10 h-10 rounded-full bg-[#C41E3A] flex items-center justify-center mx-auto mb-4 shadow-md">
-              <span className="text-white text-xs" style={{ letterSpacing: '0.1em' }}>AI</span>
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md" style={{ border: '2px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.08)' }}>
+              <img src={emblem} alt="校徽" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
             </div>
             <h1 className="text-white" style={{ fontWeight: 300 }}>
               <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] leading-none">
