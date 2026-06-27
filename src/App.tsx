@@ -43,11 +43,6 @@ const Style = () => (
       100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
     .seal-anim { animation: sealPop 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(32px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
     @keyframes charReveal {
       0% { opacity: 0; transform: scale(0.1); }
       100% { opacity: 1; transform: scale(1); }
@@ -56,7 +51,7 @@ const Style = () => (
     @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     .pulse { animation: pulse 2s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) {
-      .char-type, .seal-anim, .fade-up { animation: none !important; }
+      .char-type, .seal-anim { animation: none !important; }
     }
   `}</style>
 );
@@ -72,31 +67,22 @@ function Seal({ text, size = 52 }) {
 
 function PaperBg() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none"
-      style={{
-        backgroundColor: '#FAF9F6',
-        backgroundImage: `
-          repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,0,0,0.015) 40px, rgba(0,0,0,0.015) 41px),
-          repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.015) 40px, rgba(0,0,0,0.015) 41px)
-        `,
-      }} />
+    <div className="fixed inset-0 z-0 pointer-events-none" style={{ background: '#F2EFEA' }} />
   );
 }
 
-function Section({ id, num, title, desc, bg, children, idx }) {
+function Section({ id, num, title, desc, children }) {
   const [ref, inView] = useInView(0.08);
-  const colors = ['#F0EDE6', '#EBE9E2', '#EDEFE9', '#ECE8E2'];
-  const walls = ['#1a1a1a', '#2E8B57', '#8B4513'];
   return (
-    <section ref={ref} id={id} className={`py-20 sm:py-28 px-5 sm:px-12 ${bg || colors[idx % 4]}`}
+    <section ref={ref} id={id} className="py-24 sm:py-32 px-5 sm:px-12"
       style={{ opacity: 0, transform: 'translateY(24px)', transition: 'opacity 0.7s ease, transform 0.7s ease', ...(inView ? { opacity: 1, transform: 'translateY(0)' } : {}) }}>
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-4 sm:gap-6 mb-8">
-          <span className="text-[10px] text-[#bbb] tracking-[0.3em]">{num}</span>
-          <div className="w-6 h-px bg-[#ddd]" />
-          <h2 className="text-xl sm:text-2xl md:text-3xl text-[#333]" style={{ fontWeight: 300 }}>{title}</h2>
+        <div className="flex items-center gap-4 sm:gap-6 mb-4">
+          <span className="text-xs text-[#999] tracking-[0.3em]">{num}</span>
+          <div className="w-8 h-px bg-[#ccc]" />
+          <h2 className="text-2xl sm:text-3xl text-[#1a1a1a]" style={{ fontWeight: 300 }}>{title}</h2>
         </div>
-        <p className="text-xs sm:text-sm text-[#777] max-w-2xl leading-[1.9] mb-8">{desc}</p>
+        <p className="text-sm sm:text-base text-[#555] max-w-2xl leading-[2] mb-10">{desc}</p>
         {children}
       </div>
     </section>
@@ -120,12 +106,8 @@ const sections = [
       { icon: '🎨', label: '藝術創作', items: ['AI 繪圖倫理', '風格轉換', '多媒體設計'] },
     ],
   },
-  {
-    id: 'vibe', num: '03', title: 'Vibe Coding', desc: '引進前沿Vibe Coding模式，學生無需死記語法，以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。',
-  },
-  {
-    id: 'assistant', num: '04', title: 'AI 輔助學習', desc: '全天候在線課業輔助學習系統，針對每位學生的作答與弱點進行溫和、漸進式拆解引導，提供真正因材施教的一對一教學輔導。',
-  },
+  { id: 'vibe', num: '03', title: 'Vibe Coding', desc: '引進前沿Vibe Coding模式，學生無需死記語法，以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。' },
+  { id: 'assistant', num: '04', title: 'AI 輔助學習', desc: '全天候在線課業輔助學習系統，針對每位學生的作答與弱點進行溫和、漸進式拆解引導，提供真正因材施教的一對一教學輔導。' },
 ];
 
 export default function App() {
@@ -140,13 +122,6 @@ export default function App() {
   const gameImages = [img3, img4, img5, img6];
   useEffect(() => { const t = setInterval(() => setGameImg(p => (p + 1) % gameImages.length), 3500); return () => clearInterval(t); }, []);
 
-  const sealScale = 1 - scrollP * 0.5;
-  const sealOpacity = 1 - scrollP;
-  const envY = scrollP * 100;
-  const envOpacity = 1 - scrollP;
-  const letterOpacity = Math.min(1, scrollP * 1.2);
-  const letterY = (1 - scrollP) * 40;
-
   return (
     <div className="min-h-screen text-[#1a1a1a] relative overflow-x-hidden"
       style={{ fontFamily: "'Noto Serif SC', 'PingFang HK', serif", fontWeight: 300 }}>
@@ -154,107 +129,112 @@ export default function App() {
       <PaperBg />
 
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 sm:px-10 py-3" style={{ background: 'rgba(250,249,246,0.92)', backdropFilter: 'blur(6px)' }}>
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 sm:px-10 py-3" style={{ background: 'rgba(242,239,234,0.93)', backdropFilter: 'blur(8px)' }}>
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-[#C41E3A] flex items-center justify-center">
-            <span className="text-white text-[7px] tracking-[0.05em]">SWS</span>
+          <div className="w-8 h-8 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-sm">
+            <span className="text-white text-[8px] tracking-[0.05em]">SWS</span>
           </div>
-          <span className="text-[10px] text-[#888]" style={{ letterSpacing: '0.08em' }}>新會商會中學</span>
+          <span className="text-xs text-[#666]" style={{ letterSpacing: '0.08em' }}>新會商會中學</span>
         </div>
-        <div className="hidden md:flex items-center gap-5 text-[10px] text-[#aaa] tracking-[0.15em]">
-          <a href="#hero" className="hover:text-[#666] transition-colors">首頁</a>
+        <div className="hidden md:flex items-center gap-6 text-xs text-[#888] tracking-[0.15em]">
+          <a href="#hero" className="hover:text-[#333] transition-colors">首頁</a>
           {sections.map(s => (
-            <a key={s.id} href={'#' + s.id} className="hover:text-[#666] transition-colors">{s.num} {s.title}</a>
+            <a key={s.id} href={'#' + s.id} className="hover:text-[#333] transition-colors">{s.num} {s.title}</a>
           ))}
         </div>
       </nav>
 
       {/* ════════ HERO ════════ */}
       <section id="hero" className="relative w-full overflow-hidden flex items-center justify-center" style={{ height: '100dvh' }}>
-        {/* Background */}
-        <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(180deg, #FAF9F6 0%, #F5F2EC 50%, #EDE8E0 100%)' }} />
-        <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-[0.08] mix-blend-multiply"
+        {/* Background gradient */}
+        <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(180deg, #F2EFEA 0%, #EDE8E0 50%, #E5DED4 100%)' }} />
+        <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-[0.06] mix-blend-multiply"
           style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.7) brightness(1.5)' }} />
 
-        {/* Letter content (behind envelope) */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none" style={{ opacity: letterOpacity, transform: `translateY(${letterY}px)` }}>
+        {/* Letter content (revealed when envelope opens) */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
+          style={{ opacity: Math.min(1, scrollP * 1.3), transform: `translateY(${(1 - scrollP) * 40}px)` }}>
           <Seal text="AI" size={28} />
           <h1 className="text-[#1a1a1a] mt-5">
-            <span className="block text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] leading-none" style={{ fontWeight: 300, letterSpacing: '0.04em' }}>
+            <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none">
               {typingText.split('').map((ch, i) => (
                 <span key={i} className="char-type" style={{ opacity: i < typingStep ? 1 : 0, transform: i < typingStep ? 'scale(1)' : 'scale(0.1)' }}>{ch}</span>
               ))}
             </span>
           </h1>
-          <p className="mt-3 text-xs sm:text-sm text-[#999]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
+          <p className="mt-4 text-sm text-[#888]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
         </div>
 
-        {/* Envelope front */}
-        <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center" style={{ transform: `translateY(${envY}%)`, opacity: envOpacity }}>
-          <div className="w-full h-full max-w-2xl mx-auto flex flex-col items-center justify-center px-6" style={{ background: '#FAF9F6', boxShadow: '0 0 0 1px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.04)' }}>
+        {/* Envelope front - slides down on scroll */}
+        <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center"
+          style={{ transform: `translateY(${scrollP * 100}%)`, opacity: 1 - scrollP }}>
+          <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-8 bg-white shadow-xl"
+            style={{ height: '78%', borderRadius: 2 }}>
             {/* Flap triangle */}
             <div className="absolute top-0 left-0 right-0">
-              <svg viewBox="0 0 200 28" className="w-full h-auto" preserveAspectRatio="none">
-                <path d="M0,0 L200,0 L200,2 L105,24 L100,28 L95,24 L0,2 Z" fill="rgba(0,0,0,0.025)" stroke="rgba(0,0,0,0.06)" strokeWidth="0.5" />
+              <svg viewBox="0 0 200 30" className="w-full h-auto" preserveAspectRatio="none">
+                <path d="M0,0 L200,0 L200,3 L105,26 L100,30 L95,26 L0,3 Z" fill="rgba(0,0,0,0.025)" stroke="rgba(0,0,0,0.08)" strokeWidth="0.5" />
               </svg>
             </div>
 
             {/* Stamp */}
-            <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-12 sm:w-12 sm:h-14 flex flex-col items-center justify-center" style={{ border: '2px solid rgba(196,30,58,0.25)', background: '#FAF9F6' }}>
-              <span className="text-[6px] text-[#C41E3A] font-bold" style={{ letterSpacing: '0.1em' }}>AIR MAIL</span>
-              <div className="w-4 h-4 mt-1 rounded-full flex items-center justify-center" style={{ border: '1px solid rgba(196,30,58,0.2)' }}>
+            <div className="absolute top-8 right-8 w-12 h-14 bg-white flex flex-col items-center justify-center" style={{ border: '2px solid rgba(196,30,58,0.2)' }}>
+              <span className="text-[7px] text-[#C41E3A] font-bold" style={{ letterSpacing: '0.1em' }}>AIR MAIL</span>
+              <div className="w-4 h-4 mt-1 rounded-full flex items-center justify-center" style={{ border: '1px solid rgba(196,30,58,0.15)' }}>
                 <span className="text-[5px] text-[#C41E3A]">$3.7</span>
               </div>
             </div>
 
             {/* Return address */}
-            <div className="absolute top-6 left-6 sm:top-8 sm:left-8 text-left">
-              <p className="text-[7px] text-[#ccc]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
-              <p className="text-[10px] text-[#999] mt-0.5" style={{ fontWeight: 400 }}>新會商會中學</p>
-              <p className="text-[8px] text-[#aaa]">葵涌葵盛圍 · SWCSSS</p>
+            <div className="absolute top-8 left-8 text-left">
+              <p className="text-[8px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
+              <p className="text-sm text-[#666] mt-1" style={{ fontWeight: 400 }}>新會商會中學</p>
+              <p className="text-xs text-[#999]">葵涌葵盛圍 · SWCSSS</p>
             </div>
 
             {/* Address */}
-            <div className="text-center" style={{ marginTop: '-1rem' }}>
-              <p className="text-[10px] text-[#ccc] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
-              <p className="text-sm sm:text-base md:text-lg text-[#666] mb-3" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
-              <div className="w-28 h-px mx-auto mb-3" style={{ background: '#eee' }} />
-              <p className="text-[9px] text-[#bbb]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
+            <div className="text-center">
+              <p className="text-xs text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
+              <p className="text-base sm:text-lg text-[#444] mb-3" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
+              <div className="w-32 h-px mx-auto mb-3 bg-[#e0dcd5]" />
+              <p className="text-xs text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
             </div>
 
             {/* Wax seal */}
-            <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2" style={{ transform: `translateX(-50%) scale(${sealScale})`, opacity: sealOpacity }}>
-              <div className="seal-anim w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
-                <span className="text-white text-[9px] sm:text-[11px]" style={{ letterSpacing: '0.1em' }}>SWS</span>
+            <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2"
+              style={{ opacity: 1 - scrollP, transform: `translateX(-50%) scale(${1 - scrollP * 0.5})` }}>
+              <div className="seal-anim w-12 h-12 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
+                <span className="text-white text-[10px]" style={{ letterSpacing: '0.1em' }}>SWS</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none" style={{ opacity: 1 - scrollP }}>
-          <span className="text-[9px] text-[#bbb]" style={{ letterSpacing: '0.2em' }}>向下滾動打開</span>
-          <svg width="20" height="28" viewBox="0 0 20 28" className="pulse">
-            <rect x="1" y="1" width="18" height="26" rx="9" fill="none" stroke="#ccc" strokeWidth="1.5" />
-            <circle cx="10" cy="8" r="2.5" fill="#bbb" />
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none"
+          style={{ opacity: 1 - scrollP }}>
+          <span className="text-xs text-[#999]" style={{ letterSpacing: '0.2em' }}>向下滾動打開</span>
+          <svg width="22" height="32" viewBox="0 0 22 32" className="pulse">
+            <rect x="1.5" y="1.5" width="19" height="29" rx="10" fill="none" stroke="#bbb" strokeWidth="1.8" />
+            <circle cx="11" cy="9" r="3" fill="#bbb" />
           </svg>
         </div>
       </section>
 
       {/* ════════ SECTION 01 ════════ */}
-      <Section id="funding" num="01" title="智啟學教" desc={sections[0].desc} idx={0}>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px" style={{ background: 'rgba(0,0,0,0.05)' }}>
+      <Section id="funding" num="01" title="智啟學教" desc={sections[0].desc}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#d5d0c8]">
           {sections[0].cols.map((col, i) => (
-            <div key={i} className="p-5 sm:p-6" style={{ background: '#FAF9F6' }}>
-              <p className="text-xs sm:text-sm text-[#555] mb-4" style={{ fontWeight: 400 }}>{col.title}</p>
-              <div className="space-y-2.5">
+            <div key={i} className="p-6 sm:p-8 bg-white">
+              <p className="text-sm sm:text-base text-[#333] mb-5" style={{ fontWeight: 400 }}>{col.title}</p>
+              <div className="space-y-3">
                 {col.items.map((item, j) => (
-                  <div key={j} className="p-3" style={{ background: 'rgba(0,0,0,0.015)' }}>
-                    <div className="flex items-center justify-between mb-0.5">
-                      <span className="text-[11px] text-[#555]">{item.l}</span>
-                      {item.p && <span className="text-[8px] text-[#aaa]">{item.p}</span>}
+                  <div key={j} className="p-4 bg-[#F8F6F2]">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-[#444]">{item.l}</span>
+                      {item.p && <span className="text-[10px] text-[#aaa]">{item.p}</span>}
                     </div>
-                    <span className="text-[9px] text-[#888]">{item.s}</span>
+                    <span className="text-xs text-[#888]">{item.s}</span>
                   </div>
                 ))}
               </div>
@@ -264,16 +244,16 @@ export default function App() {
       </Section>
 
       {/* ════════ SECTION 02 ════════ */}
-      <Section id="genai" num="02" title="生成式 AI" desc={sections[1].desc} idx={1}>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px" style={{ background: 'rgba(0,0,0,0.05)' }}>
+      <Section id="genai" num="02" title="生成式 AI" desc={sections[1].desc}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#d5d0c8]">
           {sections[1].subs.map((sub, i) => (
-            <div key={i} className="p-5 sm:p-6" style={{ background: '#FAF9F6' }}>
-              <span className="text-lg sm:text-xl">{sub.icon}</span>
-              <p className="text-xs sm:text-sm text-[#555] my-3" style={{ fontWeight: 400 }}>{sub.label}</p>
-              <ul className="space-y-1.5">
+            <div key={i} className="p-6 sm:p-8 bg-white">
+              <span className="text-xl sm:text-2xl">{sub.icon}</span>
+              <p className="text-sm sm:text-base text-[#333] my-4" style={{ fontWeight: 400 }}>{sub.label}</p>
+              <ul className="space-y-2">
                 {sub.items.map((item, j) => (
-                  <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
-                    <span className="w-0.5 h-0.5 rounded-full" style={{ background: '#aaa' }} />
+                  <li key={j} className="text-xs sm:text-sm text-[#666] flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[#ccc]" />
                     {item}
                   </li>
                 ))}
@@ -282,54 +262,54 @@ export default function App() {
           ))}
         </div>
         <a href="https://ai-photo-lyart.vercel.app/" target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 text-[10px] text-[#888] px-4 py-2"
-          style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
+          className="inline-flex items-center gap-2 mt-6 text-sm text-[#666] px-5 py-2.5 bg-white"
+          style={{ border: '1px solid #d5d0c8' }}>
           <span>AI 圖片生成器</span>
           <span>→</span>
         </a>
       </Section>
 
       {/* ════════ SECTION 03 ════════ */}
-      <Section id="vibe" num="03" title="Vibe Coding" desc={sections[2].desc} idx={2}>
-        <div className="flex flex-col sm:flex-row gap-6" style={{ outline: '1px solid rgba(0,0,0,0.05)' }}>
-          <div className="flex-1 p-5 sm:p-6" style={{ background: '#FAF9F6' }}>
-            <p className="text-[11px] sm:text-xs text-[#777] leading-[1.9]">學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。</p>
-            <p className="text-[11px] sm:text-xs text-[#777] leading-[1.9] mt-3">專注力從語法解放至邏輯思維，真正實現「想法即程式」的教學理念。</p>
+      <Section id="vibe" num="03" title="Vibe Coding" desc={sections[2].desc}>
+        <div className="flex flex-col sm:flex-row gap-0 bg-[#d5d0c8]" style={{ outline: '1px solid #d5d0c8' }}>
+          <div className="flex-1 p-6 sm:p-8 bg-white">
+            <p className="text-sm sm:text-base text-[#555] leading-[2]">學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。</p>
+            <p className="text-sm sm:text-base text-[#555] leading-[2] mt-4">專注力從語法解放至邏輯思維，真正實現「想法即程式」的教學理念。</p>
           </div>
-          <div className="flex-1 p-5 sm:p-6" style={{ background: 'rgba(46,139,87,0.03)', borderLeft: '1px solid rgba(46,139,87,0.1)' }}>
-            <div className="flex items-center gap-2 text-[11px] text-[#2E8B57] mb-4 pb-3" style={{ borderBottom: '1px solid rgba(46,139,87,0.1)' }}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#2E8B57' }} />
+          <div className="flex-1 p-6 sm:p-8" style={{ background: '#F8F6F2', borderLeft: '1px solid #d5d0c8' }}>
+            <div className="flex items-center gap-2 text-sm text-[#2E8B57] mb-4 pb-3" style={{ borderBottom: '1px solid rgba(46,139,87,0.15)' }}>
+              <span className="w-2 h-2 rounded-full bg-[#2E8B57]" />
               Vibe Code
             </div>
-            <div className="text-[10px] leading-[2] text-[#777]"># 「建立一個校園圖書管理系統」</div>
-            <div className="text-[10px] leading-[2] text-[#aaa]">&gt; 正在生成應用程式…</div>
-            <div className="text-[10px] leading-[2] text-[#aaa]">&gt; 學生成功在課堂內完成開發。</div>
-            <div className="text-[10px] leading-[2] text-[#2E8B57] mt-1">&gt; ✓ 部署完成</div>
+            <div className="text-sm leading-[2.2] text-[#666]"># 「建立一個校園圖書管理系統」</div>
+            <div className="text-sm leading-[2.2] text-[#999]">&gt; 正在生成應用程式…</div>
+            <div className="text-sm leading-[2.2] text-[#999]">&gt; 學生成功在課堂內完成開發。</div>
+            <div className="text-sm leading-[2.2] text-[#2E8B57] mt-1">&gt; ✓ 部署完成</div>
           </div>
         </div>
       </Section>
 
       {/* ════════ SECTION 04 ════════ */}
-      <Section id="assistant" num="04" title="AI 輔助學習" desc={sections[3].desc} idx={3}>
-        <div className="flex flex-col sm:flex-row gap-6" style={{ outline: '1px solid rgba(0,0,0,0.05)' }}>
-          <div className="flex-1 p-5 sm:p-6" style={{ background: '#FAF9F6' }}>
-            <p className="text-xs sm:text-sm text-[#555] mb-4" style={{ fontWeight: 400 }}>BAFS 商業大亨</p>
-            <p className="text-[11px] sm:text-xs text-[#777] leading-[1.9] mb-5">結合香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊。</p>
+      <Section id="assistant" num="04" title="AI 輔助學習" desc={sections[3].desc}>
+        <div className="flex flex-col sm:flex-row gap-0 bg-[#d5d0c8]" style={{ outline: '1px solid #d5d0c8' }}>
+          <div className="flex-1 p-6 sm:p-8 bg-white">
+            <p className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>BAFS 商業大亨</p>
+            <p className="text-sm sm:text-base text-[#555] leading-[2] mb-6">結合香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊。</p>
             <div className="grid grid-cols-4 gap-2">
               {[['🏢','企業收購'],['🎲','機遇風險'],['📊','法規改變'],['⚖️','稅務懲罰'],['🤝','收購中心'],['📈','證券交易'],['🏦','銀行中心'],['🔨','打工']].map(([icon, label], i) => (
-                <div key={i} className="p-2 text-center" style={{ background: 'rgba(0,0,0,0.015)' }}>
-                  <div className="text-sm">{icon}</div>
-                  <div className="text-[8px] text-[#888] mt-0.5">{label}</div>
+                <div key={i} className="p-2.5 text-center bg-[#F8F6F2]">
+                  <div className="text-lg">{icon}</div>
+                  <div className="text-[10px] text-[#666] mt-0.5">{label}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex-1" style={{ background: '#FAF9F6' }}>
-            <img src={gameImages[gameImg]} alt="BAFS" className="w-full h-auto max-h-[40vh] object-contain mx-auto" />
-            <div className="flex justify-center gap-2 py-3" style={{ background: '#FAF9F6' }}>
+          <div className="flex-1 bg-white" style={{ borderLeft: '1px solid #d5d0c8' }}>
+            <img src={gameImages[gameImg]} alt="BAFS" className="w-full h-auto max-h-[45vh] object-contain mx-auto" />
+            <div className="flex justify-center gap-2 py-3 bg-white" style={{ borderTop: '1px solid #eee' }}>
               {gameImages.map((_, i) => (
-                <span key={i} className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'w-4 h-1.5' : 'w-1.5 h-1.5'}`}
-                  style={{ background: i === gameImg ? '#555' : '#ddd' }} onClick={() => setGameImg(i)} />
+                <span key={i} className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'bg-[#555] w-5 h-2' : 'bg-[#ddd] w-2 h-2'}`}
+                  onClick={() => setGameImg(i)} />
               ))}
             </div>
           </div>
@@ -337,12 +317,12 @@ export default function App() {
       </Section>
 
       {/* Footer */}
-      <footer className="py-14 px-5 text-center" style={{ borderTop: '1px solid rgba(0,0,0,0.04)' }}>
+      <footer className="py-16 px-5 text-center" style={{ borderTop: '1px solid #d5d0c8' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="w-8 h-8 rounded-full bg-[#C41E3A] flex items-center justify-center mx-auto mb-4">
-            <span className="text-white text-[7px]">SWS</span>
+          <div className="w-10 h-10 rounded-full bg-[#C41E3A] flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <span className="text-white text-[9px]">SWS</span>
           </div>
-          <p className="text-[10px] text-[#aaa]" style={{ letterSpacing: '0.12em' }}>新會商會中學 · 人工智慧教育</p>
+          <p className="text-sm text-[#888]" style={{ letterSpacing: '0.12em' }}>新會商會中學 · 人工智慧教育</p>
         </div>
       </footer>
     </div>
