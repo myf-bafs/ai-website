@@ -258,7 +258,9 @@ export default function App() {
             </div>
           </div>
           <div className="flex-1 bg-white" style={{ borderLeft: '1px solid #d5d0c8' }}>
-            <img src={gameImages[gameImg]} alt="BAFS" className="w-full h-auto max-h-[40vh] object-contain mx-auto" />
+            <a href="https://myf-bafs.github.io/english/" target="_blank" rel="noopener noreferrer" className="block">
+              <img src={gameImages[gameImg]} alt="BAFS" className="w-full h-auto max-h-[40vh] object-contain mx-auto transition-opacity duration-500 hover:opacity-80" />
+            </a>
             <div className="flex justify-center gap-2 py-3 bg-white" style={{ borderTop: '1px solid #eee' }}>
               {gameImages.map((_, i) => (
                 <span key={i} className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'bg-[#555] w-5 h-2' : 'bg-[#ddd] w-2 h-2'}`} onClick={() => setGameImg(i)} />
@@ -266,6 +268,10 @@ export default function App() {
             </div>
           </div>
         </div>
+        <a href="https://myf-swcs.free.nf/index.php" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mt-6 text-sm text-[#666] px-5 py-2.5 bg-white" style={{ border: '1px solid #d5d0c8' }}>
+          <span>BAFS 溫習系統</span><span>→</span>
+        </a>
       </Section>
 
       <footer className="py-14 px-5 text-center" style={{ borderTop: '1px solid #d5d0c8' }}>
