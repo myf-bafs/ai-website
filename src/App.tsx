@@ -420,9 +420,15 @@ export default function App() {
               ))}
             </div>
 
-            <div className="w-full sm:w-[45%] shrink-0" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
-              <iframe src="https://ai-photo-lyart.vercel.app/" title="生成式 AI 示範"
-                className="w-full h-[50vh] sm:h-full bg-[#F8F5F0]" scrolling="yes" />
+            <div className="w-full sm:w-[45%] shrink-0 flex items-stretch" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+              <a href="https://ai-photo-lyart.vercel.app/" target="_blank" rel="noopener noreferrer"
+                className="w-full bg-[#F8F5F0] flex items-center justify-center group overflow-hidden relative">
+                <img src="/ai-photo-screenshot.png" alt="AI 圖片生成示範"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] text-[#888] bg-[#F8F5F0]/80 px-3 py-1 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                  點擊開啟全頁 →
+                </span>
+              </a>
             </div>
           </div>
         </div>
