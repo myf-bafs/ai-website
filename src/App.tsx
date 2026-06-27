@@ -222,8 +222,9 @@ export default function App() {
             </div>
           ))}
         </div>
-        <a href="https://ai-photo-lyart.vercel.app/" target="_blank" className="inline-flex items-center gap-2 mt-6 text-sm text-[#666] px-5 py-2.5 bg-white" style={{ border: '1px solid #d5d0c8' }}>
-          <span>AI 圖片生成器</span><span>→</span>
+        <a href="https://ai-photo-lyart.vercel.app/" target="_blank" className="block mt-8 group" style={{ outline: '1px solid #d5d0c8' }}>
+          <img src="/ai-photo-shot.png" alt="AI 圖片生成器" className="w-full h-auto transition-opacity duration-500 group-hover:opacity-80" />
+          <div className="py-3 text-center text-sm text-[#888] bg-white" style={{ borderTop: '1px solid #eee' }}>AI 圖片生成器 →</div>
         </a>
       </Section>
 
