@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import bgImage from '../2.png';
 import img3 from '../3.png';
 import img4 from '../4.png';
 import img5 from '../5.png';
@@ -144,12 +143,7 @@ export default function App() {
       </nav>
 
       {/* ════════ HERO ════════ */}
-      <section id="hero" className="relative w-full overflow-hidden flex items-center justify-center" style={{ height: '100dvh' }}>
-        {/* Background gradient */}
-        <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(180deg, #F2EFEA 0%, #EDE8E0 50%, #E5DED4 100%)' }} />
-        <div className="absolute inset-0 z-20 bg-center bg-cover bg-no-repeat opacity-[0.06] mix-blend-multiply"
-          style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.7) brightness(1.5)' }} />
-
+      <section id="hero" className="relative w-full overflow-hidden flex items-center justify-center" style={{ height: '100dvh', background: '#E8E3DB' }}>
         {/* Letter content (revealed when envelope opens) */}
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
           style={{ opacity: Math.min(1, scrollP * 1.3), transform: `translateY(${(1 - scrollP) * 40}px)` }}>
@@ -167,8 +161,8 @@ export default function App() {
         {/* Envelope front - slides down on scroll */}
         <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center"
           style={{ transform: `translateY(${scrollP * 100}%)`, opacity: 1 - scrollP }}>
-          <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-8 bg-white shadow-xl"
-            style={{ height: '78%', borderRadius: 2 }}>
+          <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-8 bg-white"
+            style={{ height: '78%', boxShadow: '0 8px 48px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #d5d0c8', borderRadius: 3 }}>
             {/* Flap triangle */}
             <div className="absolute top-0 left-0 right-0">
               <svg viewBox="0 0 200 30" className="w-full h-auto" preserveAspectRatio="none">
