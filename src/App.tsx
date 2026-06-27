@@ -330,7 +330,7 @@ export default function App() {
       </nav>
 
       {/* ════════ HERO — ENVELOPE ════════ */}
-      <section id="hero" className="relative w-full overflow-hidden" style={{ height: '100dvh', perspective: '1200px' }}>
+      <section id="hero" className="relative w-full overflow-hidden" style={{ height: '100dvh' }}>
         {/* Background */}
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#F8F5F0] via-[#F5F0E8] to-[#E8E0D0]" />
         <InkMountains />
@@ -338,12 +338,11 @@ export default function App() {
           style={{ backgroundImage: `url(${bgImage})`, filter: 'grayscale(1) contrast(0.8) brightness(1.4)' }} />
         <InkReveal image={bgImage} cx={cursorPos.x} cy={cursorPos.y} vel={vel} />
 
-        {/* Letter content — at top, revealed as bottom flap slides down */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pt-20 sm:pt-28 text-center px-4 pointer-events-none"
+        {/* Letter content (behind envelope, shown when opened) */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
           style={{
             opacity: scrollP,
-            transform: `translateY(${-(1 - scrollP) * 40}px)`,
-            transition: 'opacity 0.15s, transform 0.15s',
+            transform: `translateY(${(1 - scrollP) * 30}px)`,
           }}>
           <Seal text="AI" size={26} className="mb-3" />
           <h1 className="text-[#1a1a1a]">
@@ -360,49 +359,60 @@ export default function App() {
           </div>
         </div>
 
-        {/* Envelope flap — at bottom, slides down on scroll */}
-        <div className="absolute bottom-0 left-0 right-0 z-40 pointer-events-none"
+        {/* Envelope front (covers everything, slides down on scroll) */}
+        <div className="absolute inset-0 z-40 pointer-events-none"
           style={{
-            height: '62%',
-            transform: `translateY(${scrollP * 62}%)`,
-            transition: 'transform 0.3s ease-out',
+            transform: `translateY(${scrollP * 100}%)`,
+            opacity: 1 - scrollP,
           }}>
-          <div className="env-flap w-full h-full bg-[#F8F5F0]"
-            style={{ boxShadow: '0 -1px 2px rgba(0,0,0,0.04)' }}>
-            {/* Envelope front design */}
-            <div className="w-full h-full flex flex-col items-center justify-end pb-14 sm:pb-20"
-              style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
-              {/* Stamp area */}
-              <div className="absolute bottom-5 right-6 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#333]/15 flex items-center justify-center">
-                <span className="text-[6px] text-[#aaa] tracking-[0.1em]">AIR MAIL</span>
+          <div className="w-full h-full bg-[#F8F5F0] flex flex-col items-center justify-center px-6"
+            style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
+            {/* Stamp */}
+            <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#C41E3A]/40 flex flex-col items-center justify-center">
+              <span className="text-[6px] text-[#C41E3A] tracking-[0.1em] font-bold">AIR MAIL</span>
+              <div className="w-4 h-4 mt-1 rounded-full border border-[#C41E3A]/30 flex items-center justify-center">
+                <span className="text-[5px] text-[#C41E3A]">$3.7</span>
               </div>
-              {/* Return address */}
-              <div className="absolute bottom-8 left-6 text-left">
-                <div className="text-[8px] text-[#aaa] tracking-[0.1em]">回 件 地 址</div>
-                <div className="text-[10px] text-[#888] mt-1" style={{ fontWeight: 400 }}>新會商會中學</div>
-                <div className="text-[8px] text-[#999] mt-0.5">SWCSSS</div>
+            </div>
+
+            {/* Return address */}
+            <div className="absolute top-6 left-6 sm:top-8 sm:left-8 text-left">
+              <div className="text-[7px] text-[#aaa] tracking-[0.15em]">寄件人</div>
+              <div className="text-[10px] text-[#666] mt-0.5">新會商會中學</div>
+              <div className="text-[8px] text-[#888]">葵涌葵盛圍 · SWCSSS</div>
+            </div>
+
+            {/* Flap V-line */}
+            <div className="absolute top-0 left-0 right-0 h-16 sm:h-20" style={{
+              background: 'linear-gradient(135deg, transparent 49.5%, rgba(30,30,30,0.06) 50%, transparent 50.5%), linear-gradient(225deg, transparent 49.5%, rgba(30,30,30,0.06) 50%, transparent 50.5%)',
+              backgroundSize: '50% 100%',
+              backgroundPosition: 'left top, right top',
+              backgroundRepeat: 'no-repeat',
+            }} />
+
+            {/* Recipient address */}
+            <div className="text-center space-y-3 sm:space-y-4">
+              <div className="text-[11px] sm:text-xs text-[#888] tracking-[0.15em]">致</div>
+              <div className="text-base sm:text-lg md:text-xl text-[#444] tracking-[0.2em]" style={{ fontWeight: 400 }}>
+                全體教職員 · 學生 · 家長
               </div>
-              {/* Center envelope line */}
-              <div className="w-full max-w-[60%] h-px bg-[#333]/8 mt-12 sm:mt-16" />
+              <div className="w-32 sm:w-40 h-px bg-[#333]/10 mx-auto" />
+              <div className="text-[10px] sm:text-xs text-[#aaa] tracking-[0.12em]">
+                新界葵涌葵盛圍 新會商會中學
+              </div>
+            </div>
+
+            {/* Wax seal */}
+            <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2">
+              <div className="seal-in w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
+                <span className="text-white text-[8px] sm:text-[10px] tracking-[0.1em]">SWS</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Wax seal — at V-point (top of bottom flap) */}
-        <div className="absolute z-50 pointer-events-none" style={{
-          top: 'calc(38% - 18px)',
-          left: '50%',
-          transform: `translateX(-50%) scale(${1 - scrollP * 0.6})`,
-          opacity: 1 - scrollP,
-          transition: 'opacity 0.2s, transform 0.3s',
-        }}>
-          <div className="seal-in w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
-            <span className="text-white text-[8px] sm:text-[10px] tracking-[0.1em]">SWS</span>
-          </div>
-        </div>
-
         {/* Scroll hint */}
-        <div className="absolute bottom-[62%] left-1/2 -translate-x-1/2 z-40 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse"
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 text-[10px] text-[#aaa] tracking-[0.3em] animate-pulse"
           style={{ opacity: 1 - scrollP }}>
           ↓ 打開信封
         </div>
