@@ -143,12 +143,12 @@ export default function App() {
       </nav>
 
       {/* ════════ HERO ════════ */}
-      <section id="hero" className="relative w-full overflow-hidden flex items-center justify-center" style={{ height: '100dvh', background: '#E8E3DB' }}>
-        {/* Letter content (revealed when envelope opens) */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
-          style={{ opacity: Math.min(1, scrollP * 1.3), transform: `translateY(${(1 - scrollP) * 40}px)` }}>
-          <Seal text="AI" size={28} />
-          <h1 className="text-[#1a1a1a] mt-5">
+      <section id="hero" className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '100dvh', background: '#D6CFC5' }}>
+        {/* Letter content (appears when envelope opens) */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none z-10"
+          style={{ opacity: Math.min(1, scrollP * 1.4), transform: `translateY(${(1 - scrollP) * 50}px)` }}>
+          <Seal text="AI" size={32} />
+          <h1 className="text-[#1a1a1a] mt-6">
             <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none">
               {typingText.split('').map((ch, i) => (
                 <span key={i} className="char-type" style={{ opacity: i < typingStep ? 1 : 0, transform: i < typingStep ? 'scale(1)' : 'scale(0.1)' }}>{ch}</span>
@@ -158,20 +158,18 @@ export default function App() {
           <p className="mt-4 text-sm sm:text-lg text-[#888]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
         </div>
 
-        {/* Envelope front - slides down on scroll */}
-        <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center"
-          style={{ transform: `translateY(${scrollP * 100}%)`, opacity: 1 - scrollP }}>
-          <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center px-8 bg-white"
-            style={{ height: '78%', boxShadow: '0 8px 48px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #d5d0c8', borderRadius: 3 }}>
-            {/* Flap triangle */}
-            <div className="absolute top-0 left-0 right-0">
-              <svg viewBox="0 0 200 30" className="w-full h-auto" preserveAspectRatio="none">
-                <path d="M0,0 L200,0 L200,3 L105,26 L100,30 L95,26 L0,3 Z" fill="rgba(0,0,0,0.025)" stroke="rgba(0,0,0,0.08)" strokeWidth="0.5" />
-              </svg>
-            </div>
+        {/* Envelope */}
+        <div className="absolute inset-0 flex items-center justify-center z-20"
+          style={{ transform: `translateY(${scrollP * 110}%)`, opacity: 1 - scrollP * 1.1 }}>
+          <div className="relative w-[85%] max-w-xl bg-white flex flex-col items-center justify-center"
+            style={{ height: '80%', boxShadow: '0 12px 60px rgba(0,0,0,0.18)', borderRadius: 4 }}>
+            {/* Flap line */}
+            <svg className="absolute top-0 left-0 right-0 w-full" viewBox="0 0 200 28" preserveAspectRatio="none" style={{ height: 28 }}>
+              <path d="M0,0 L200,0 L200,3 L106,24 L100,28 L94,24 L0,3 Z" fill="#f5f4f0" stroke="#ddd" strokeWidth="0.5" />
+            </svg>
 
             {/* Stamp */}
-            <div className="absolute top-8 right-8 w-12 h-14 bg-white flex flex-col items-center justify-center" style={{ border: '2px solid rgba(196,30,58,0.2)' }}>
+            <div className="absolute top-6 right-6 w-12 h-14 bg-white flex flex-col items-center justify-center" style={{ border: '2px solid rgba(196,30,58,0.2)' }}>
               <span className="text-[7px] text-[#C41E3A] font-bold" style={{ letterSpacing: '0.1em' }}>AIR MAIL</span>
               <div className="w-4 h-4 mt-1 rounded-full flex items-center justify-center" style={{ border: '1px solid rgba(196,30,58,0.15)' }}>
                 <span className="text-[5px] text-[#C41E3A]">$3.7</span>
@@ -179,34 +177,28 @@ export default function App() {
             </div>
 
             {/* Return address */}
-            <div className="absolute top-8 left-8 text-left">
+            <div className="absolute top-6 left-6 text-left">
               <p className="text-[9px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
               <p className="text-base text-[#666] mt-1" style={{ fontWeight: 400 }}>新會商會中學</p>
               <p className="text-sm text-[#999]">葵涌葵盛圍 · SWCSSS</p>
             </div>
 
-            {/* Address with emblem */}
+            {/* Emblem + address */}
             <div className="flex flex-col items-center">
               <p className="text-sm text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-md flex items-center justify-center p-3 sm:p-4 mb-4"
-                style={{ border: '2px solid #C41E3A' }}>
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white flex items-center justify-center p-3 sm:p-4 mb-4"
+                style={{ border: '2px solid #C41E3A', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
                 <img src={emblem} alt="校徽" className="w-full h-full object-contain" />
               </div>
               <p className="text-lg sm:text-xl text-[#444]" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
-              <div className="w-36 h-px mx-auto mb-3 bg-[#e0dcd5]" />
+              <div className="w-36 h-px mx-auto my-3 bg-[#e0dcd5]" />
               <p className="text-sm text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
-            </div>
-
-            {/* Emblem center */}
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-md flex items-center justify-center p-3 sm:p-4"
-              style={{ border: '2px solid #C41E3A' }}>
-              <img src={emblem} alt="校徽" className="w-full h-full object-contain" />
             </div>
           </div>
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none"
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 pointer-events-none"
           style={{ opacity: 1 - scrollP }}>
           <span className="text-sm text-[#999]" style={{ letterSpacing: '0.2em' }}>向下滾動打開</span>
           <svg width="24" height="34" viewBox="0 0 24 34" className="pulse">
