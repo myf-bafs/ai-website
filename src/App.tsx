@@ -134,7 +134,7 @@ export default function App() {
           <div className="absolute" style={{ top: 30, left: 24 }}>
             <p className="text-[10px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
             <p className="text-sm text-[#666]" style={{ fontWeight: 400 }}>新會商會中學</p>
-            <p className="text-xs text-[#888]">葵涌葵盛圍 · SWCSSS</p>
+            <p className="text-xs text-[#888]">屯門良景村 · SWCSSS</p>
           </div>
           {/* Stamp */}
           <div className="absolute flex flex-col items-center justify-center" style={{ top: 26, right: 24, width: 48, height: 56, border: '2px solid rgba(196,30,58,0.2)' }}>
@@ -149,7 +149,7 @@ export default function App() {
             </div>
             <p className="text-base sm:text-lg text-[#444]" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
             <div style={{ width: 120, height: 1, background: '#e0dcd5', margin: '12px auto' }} />
-            <p className="text-xs text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
+            <p className="text-xs text-[#999]" style={{ letterSpacing: '0.12em' }}>香港屯門良景村 新會商會中學</p>
           </div>
         </div>
 
