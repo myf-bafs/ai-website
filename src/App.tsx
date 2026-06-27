@@ -339,7 +339,7 @@ export default function App() {
         <InkReveal image={bgImage} cx={cursorPos.x} cy={cursorPos.y} vel={vel} />
 
         {/* Letter content — revealed as envelope opens */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none"
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-end pb-16 sm:pb-24 text-center px-4 pointer-events-none"
           style={{
             opacity: scrollP,
             transform: `translateY(${(1 - scrollP) * 60}px)`,
