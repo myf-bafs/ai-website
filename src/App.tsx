@@ -401,27 +401,29 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10"
-            style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
-            {sections[1].subjects.map((subj, i) => (
-              <div key={i} className="p-5 sm:p-6 bg-[#F8F5F0]">
-                <div className="text-lg sm:text-xl mb-2">{subj.icon}</div>
-                <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{subj.label}</div>
-                <ul className="space-y-2">
-                  {subj.items.map((item, j) => (
-                    <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
-                      <span className="w-0.5 h-0.5 bg-[#888] shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-6 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10 flex-1"
+              style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+              {sections[1].subjects.map((subj, i) => (
+                <div key={i} className="p-5 sm:p-6 bg-[#F8F5F0]">
+                  <div className="text-lg sm:text-xl mb-2">{subj.icon}</div>
+                  <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{subj.label}</div>
+                  <ul className="space-y-2">
+                    {subj.items.map((item, j) => (
+                      <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
+                        <span className="w-0.5 h-0.5 bg-[#888] shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
 
-          <div className="mt-10 w-full" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
-            <iframe src="https://ai-photo-lyart.vercel.app/" title="生成式 AI 示範"
-              className="w-full h-[50vh] sm:h-[60vh] bg-[#F8F5F0]" />
+            <div className="w-full sm:w-[45%] shrink-0" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+              <iframe src="https://ai-photo-lyart.vercel.app/" title="生成式 AI 示範"
+                className="w-full h-[50vh] sm:h-full bg-[#F8F5F0]" scrolling="yes" />
+            </div>
           </div>
         </div>
       </ScrollSection>
