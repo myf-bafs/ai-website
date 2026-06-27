@@ -4,6 +4,7 @@ import img3 from '../3.png';
 import img4 from '../4.png';
 import img5 from '../5.png';
 import img6 from '../6.png';
+import emblem from '../4emblem.png';
 
 function useInView(t = 0.12) {
   const ref = useRef(null);
@@ -131,9 +132,7 @@ export default function App() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 sm:px-10 py-3" style={{ background: 'rgba(242,239,234,0.93)', backdropFilter: 'blur(8px)' }}>
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-sm">
-            <span className="text-white text-[8px] tracking-[0.05em]">SWS</span>
-          </div>
+          <img src={emblem} alt="校徽" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
           <span className="text-sm text-[#666]" style={{ letterSpacing: '0.08em' }}>新會商會中學</span>
         </div>
         <div className="hidden md:flex items-center gap-6 text-sm text-[#888] tracking-[0.15em]">
@@ -319,9 +318,7 @@ export default function App() {
       {/* Footer */}
       <footer className="py-16 px-5 text-center" style={{ borderTop: '1px solid #d5d0c8' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="w-10 h-10 rounded-full bg-[#C41E3A] flex items-center justify-center mx-auto mb-4 shadow-sm">
-            <span className="text-white text-[9px]">SWS</span>
-          </div>
+          <img src={emblem} alt="校徽" className="w-10 h-10 sm:w-12 sm:h-12 object-contain mx-auto mb-4 opacity-80" />
           <p className="text-base text-[#888]" style={{ letterSpacing: '0.12em' }}>新會商會中學 · 人工智慧教育</p>
         </div>
       </footer>
