@@ -418,6 +418,11 @@ export default function App() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 w-full" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+            <iframe src="https://ai-photo-lyart.vercel.app/" title="生成式 AI 示範"
+              className="w-full h-[50vh] sm:h-[60vh] bg-[#F8F5F0]" />
+          </div>
         </div>
       </ScrollSection>
 
