@@ -401,35 +401,22 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-6 items-stretch">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10 flex-1"
-              style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
-              {sections[1].subjects.map((subj, i) => (
-                <div key={i} className="p-5 sm:p-6 bg-[#F8F5F0]">
-                  <div className="text-lg sm:text-xl mb-2">{subj.icon}</div>
-                  <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{subj.label}</div>
-                  <ul className="space-y-2">
-                    {subj.items.map((item, j) => (
-                      <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
-                        <span className="w-0.5 h-0.5 bg-[#888] shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="w-full sm:w-[45%] shrink-0 flex items-stretch" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
-              <a href="https://ai-photo-lyart.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="w-full bg-[#F8F5F0] flex items-center justify-center group overflow-hidden relative">
-                <img src="/ai-photo-screenshot.png" alt="AI 圖片生成示範"
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
-                <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] text-[#888] bg-[#F8F5F0]/80 px-3 py-1 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                  點擊開啟全頁 →
-                </span>
-              </a>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#333]/10"
+            style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+            {sections[1].subjects.map((subj, i) => (
+              <div key={i} className="p-5 sm:p-6 bg-[#F8F5F0]">
+                <div className="text-lg sm:text-xl mb-2">{subj.icon}</div>
+                <div className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>{subj.label}</div>
+                <ul className="space-y-2">
+                  {subj.items.map((item, j) => (
+                    <li key={j} className="text-[10px] sm:text-xs text-[#888] flex items-center gap-2">
+                      <span className="w-0.5 h-0.5 bg-[#888] shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </ScrollSection>
