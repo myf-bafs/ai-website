@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import bgImage from '../2.png';
 import img3 from '../3.png';
 import img4 from '../4.png';
 import img5 from '../5.png';
@@ -103,6 +104,8 @@ export default function App() {
       <div id="hero" className="relative overflow-hidden" style={{ height: '100vh', background: '#C9C0B4', cursor: opened ? 'default' : 'pointer' }} onClick={() => !opened && setOpened(true)}>
         {/* Subtle radial glow */}
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 55%, rgba(255,255,255,0.15) 0%, transparent 60%)', pointerEvents: 'none' }} />
+        {/* Background image */}
+        <div className="absolute inset-0 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${bgImage})`, opacity: 0.08, filter: 'grayscale(1) contrast(0.8) brightness(1.2)', pointerEvents: 'none' }} />
         {/* Letter content */}
         <div className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: opened ? 1 : 0, transition: 'opacity 0.8s ease 0.3s' }}>
           <div className="text-center px-4">
