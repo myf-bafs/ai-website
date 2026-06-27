@@ -145,14 +145,12 @@ export default function App() {
       {/* ════════ HERO ════════ */}
       <section id="hero" className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '100dvh', background: '#D6CFC5' }}>
         {/* Letter content (appears when envelope opens) */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none z-10"
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10"
           style={{ opacity: Math.min(1, scrollP * 1.4), transform: `translateY(${(1 - scrollP) * 50}px)` }}>
           <Seal text="AI" size={32} />
           <h1 className="text-[#1a1a1a] mt-6">
-            <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none">
-              {typingText.split('').map((ch, i) => (
-                <span key={i} className="char-type" style={{ opacity: i < typingStep ? 1 : 0, transform: i < typingStep ? 'scale(1)' : 'scale(0.1)' }}>{ch}</span>
-              ))}
+            <span className="block text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem] leading-none" style={{ fontWeight: 300 }}>
+              {typingText}
             </span>
           </h1>
           <p className="mt-4 text-sm sm:text-lg text-[#888]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
