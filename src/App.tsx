@@ -418,6 +418,17 @@ export default function App() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10" style={{ outline: '1px solid rgba(30,30,30,0.06)' }}>
+            <a href="https://ai-photo-lyart.vercel.app/" target="_blank" rel="noopener noreferrer"
+              className="block bg-[#F8F5F0] group">
+              <img src="/ai-photo-screenshot.png" alt="AI 圖片生成示範"
+                className="w-full h-auto transition-opacity duration-500 group-hover:opacity-80" />
+              <div className="py-3 text-center text-[10px] text-[#999] tracking-[0.15em]">
+                點擊開啟 AI 圖片生成器 →
+              </div>
+            </a>
+          </div>
         </div>
       </ScrollSection>
 
