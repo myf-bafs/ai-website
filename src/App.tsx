@@ -76,10 +76,6 @@ const Stylesheet = () => (
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .env-flap {
-      clip-path: polygon(0 12%, 45% 7%, 50% 0%, 55% 7%, 100% 12%, 100% 100%, 0 100%);
-    }
-
     @media (prefers-reduced-motion: reduce) {
       .mist, .char-type, .seal-in, .fade-up, .ink-in { animation: none !important; }
     }
@@ -365,10 +361,17 @@ export default function App() {
             transform: `translateY(${scrollP * 100}%)`,
             opacity: 1 - scrollP,
           }}>
-          <div className="w-full h-full bg-[#F8F5F0] flex flex-col items-center justify-center px-6"
-            style={{ border: '1px solid rgba(30,30,30,0.06)' }}>
+          <div className="w-full h-full bg-white flex flex-col items-center justify-center px-6"
+            style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.04)' }}>
+            {/* Flap triangle */}
+            <div className="absolute top-0 left-0 right-0 z-10">
+              <svg viewBox="0 0 100 18" className="w-full h-auto">
+                <path d="M0,0 L100,0 L100,2 L55,16 L50,18 L45,16 L0,2 Z" fill="rgba(0,0,0,0.03)" stroke="rgba(0,0,0,0.08)" strokeWidth="0.5" />
+              </svg>
+            </div>
+
             {/* Stamp */}
-            <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#C41E3A]/40 flex flex-col items-center justify-center">
+            <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-12 sm:w-12 sm:h-14 border-2 border-[#C41E3A]/40 flex flex-col items-center justify-center bg-white">
               <span className="text-[6px] text-[#C41E3A] tracking-[0.1em] font-bold">AIR MAIL</span>
               <div className="w-4 h-4 mt-1 rounded-full border border-[#C41E3A]/30 flex items-center justify-center">
                 <span className="text-[5px] text-[#C41E3A]">$3.7</span>
@@ -377,27 +380,19 @@ export default function App() {
 
             {/* Return address */}
             <div className="absolute top-6 left-6 sm:top-8 sm:left-8 text-left">
-              <div className="text-[7px] text-[#aaa] tracking-[0.15em]">寄件人</div>
-              <div className="text-[10px] text-[#666] mt-0.5">新會商會中學</div>
-              <div className="text-[8px] text-[#888]">葵涌葵盛圍 · SWCSSS</div>
+              <div className="text-[7px] text-[#ccc] tracking-[0.15em]">寄件人</div>
+              <div className="text-[10px] text-[#999] mt-0.5" style={{ fontWeight: 400 }}>新會商會中學</div>
+              <div className="text-[8px] text-[#aaa]">葵涌葵盛圍 · SWCSSS</div>
             </div>
-
-            {/* Flap V-line */}
-            <div className="absolute top-0 left-0 right-0 h-16 sm:h-20" style={{
-              background: 'linear-gradient(135deg, transparent 49.5%, rgba(30,30,30,0.06) 50%, transparent 50.5%), linear-gradient(225deg, transparent 49.5%, rgba(30,30,30,0.06) 50%, transparent 50.5%)',
-              backgroundSize: '50% 100%',
-              backgroundPosition: 'left top, right top',
-              backgroundRepeat: 'no-repeat',
-            }} />
 
             {/* Recipient address */}
             <div className="text-center space-y-3 sm:space-y-4">
-              <div className="text-[11px] sm:text-xs text-[#888] tracking-[0.15em]">致</div>
-              <div className="text-base sm:text-lg md:text-xl text-[#444] tracking-[0.2em]" style={{ fontWeight: 400 }}>
+              <div className="text-[11px] sm:text-xs text-[#bbb] tracking-[0.15em]">致</div>
+              <div className="text-base sm:text-lg md:text-xl text-[#666] tracking-[0.2em]" style={{ fontWeight: 400 }}>
                 全體教職員 · 學生 · 家長
               </div>
-              <div className="w-32 sm:w-40 h-px bg-[#333]/10 mx-auto" />
-              <div className="text-[10px] sm:text-xs text-[#aaa] tracking-[0.12em]">
+              <div className="w-32 sm:w-40 h-px bg-[#eee] mx-auto" />
+              <div className="text-[10px] sm:text-xs text-[#bbb] tracking-[0.12em]">
                 新界葵涌葵盛圍 新會商會中學
               </div>
             </div>
