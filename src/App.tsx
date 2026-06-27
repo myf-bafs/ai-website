@@ -80,9 +80,9 @@ function Section({ id, num, title, desc, children }) {
         <div className="flex items-center gap-4 sm:gap-6 mb-4">
           <span className="text-xs text-[#999] tracking-[0.3em]">{num}</span>
           <div className="w-8 h-px bg-[#ccc]" />
-          <h2 className="text-2xl sm:text-3xl text-[#1a1a1a]" style={{ fontWeight: 300 }}>{title}</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#1a1a1a]" style={{ fontWeight: 300 }}>{title}</h2>
         </div>
-        <p className="text-sm sm:text-base text-[#555] max-w-2xl leading-[2] mb-10">{desc}</p>
+        <p className="text-base sm:text-lg text-[#555] max-w-2xl leading-[2] mb-12">{desc}</p>
         {children}
       </div>
     </section>
@@ -134,9 +134,9 @@ export default function App() {
           <div className="w-8 h-8 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-sm">
             <span className="text-white text-[8px] tracking-[0.05em]">SWS</span>
           </div>
-          <span className="text-xs text-[#666]" style={{ letterSpacing: '0.08em' }}>新會商會中學</span>
+          <span className="text-sm text-[#666]" style={{ letterSpacing: '0.08em' }}>新會商會中學</span>
         </div>
-        <div className="hidden md:flex items-center gap-6 text-xs text-[#888] tracking-[0.15em]">
+        <div className="hidden md:flex items-center gap-6 text-sm text-[#888] tracking-[0.15em]">
           <a href="#hero" className="hover:text-[#333] transition-colors">首頁</a>
           {sections.map(s => (
             <a key={s.id} href={'#' + s.id} className="hover:text-[#333] transition-colors">{s.num} {s.title}</a>
@@ -162,7 +162,7 @@ export default function App() {
               ))}
             </span>
           </h1>
-          <p className="mt-4 text-sm text-[#888]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
+          <p className="mt-4 text-sm sm:text-lg text-[#888]" style={{ letterSpacing: '0.2em' }}>新會商會中學 · 人工智慧教育藍圖</p>
         </div>
 
         {/* Envelope front - slides down on scroll */}
@@ -187,17 +187,17 @@ export default function App() {
 
             {/* Return address */}
             <div className="absolute top-8 left-8 text-left">
-              <p className="text-[8px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
-              <p className="text-sm text-[#666] mt-1" style={{ fontWeight: 400 }}>新會商會中學</p>
-              <p className="text-xs text-[#999]">葵涌葵盛圍 · SWCSSS</p>
+              <p className="text-[9px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
+              <p className="text-base text-[#666] mt-1" style={{ fontWeight: 400 }}>新會商會中學</p>
+              <p className="text-sm text-[#999]">葵涌葵盛圍 · SWCSSS</p>
             </div>
 
             {/* Address */}
             <div className="text-center">
-              <p className="text-xs text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
-              <p className="text-base sm:text-lg text-[#444] mb-3" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
-              <div className="w-32 h-px mx-auto mb-3 bg-[#e0dcd5]" />
-              <p className="text-xs text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
+              <p className="text-sm text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
+              <p className="text-lg sm:text-xl text-[#444] mb-3" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
+              <div className="w-36 h-px mx-auto mb-3 bg-[#e0dcd5]" />
+              <p className="text-sm text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
             </div>
 
             {/* Wax seal */}
@@ -213,10 +213,10 @@ export default function App() {
         {/* Scroll hint */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none"
           style={{ opacity: 1 - scrollP }}>
-          <span className="text-xs text-[#999]" style={{ letterSpacing: '0.2em' }}>向下滾動打開</span>
-          <svg width="22" height="32" viewBox="0 0 22 32" className="pulse">
-            <rect x="1.5" y="1.5" width="19" height="29" rx="10" fill="none" stroke="#bbb" strokeWidth="1.8" />
-            <circle cx="11" cy="9" r="3" fill="#bbb" />
+          <span className="text-sm text-[#999]" style={{ letterSpacing: '0.2em' }}>向下滾動打開</span>
+          <svg width="24" height="34" viewBox="0 0 24 34" className="pulse">
+            <rect x="1.5" y="1.5" width="21" height="31" rx="11" fill="none" stroke="#bbb" strokeWidth="1.8" />
+            <circle cx="12" cy="10" r="3.5" fill="#bbb" />
           </svg>
         </div>
       </section>
@@ -225,16 +225,16 @@ export default function App() {
       <Section id="funding" num="01" title="智啟學教" desc={sections[0].desc}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#d5d0c8]">
           {sections[0].cols.map((col, i) => (
-            <div key={i} className="p-6 sm:p-8 bg-white">
-              <p className="text-sm sm:text-base text-[#333] mb-5" style={{ fontWeight: 400 }}>{col.title}</p>
-              <div className="space-y-3">
+            <div key={i} className="p-8 sm:p-10 bg-white">
+              <p className="text-base sm:text-lg text-[#333] mb-6" style={{ fontWeight: 400 }}>{col.title}</p>
+              <div className="space-y-4">
                 {col.items.map((item, j) => (
-                  <div key={j} className="p-4 bg-[#F8F6F2]">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm text-[#444]">{item.l}</span>
-                      {item.p && <span className="text-[10px] text-[#aaa]">{item.p}</span>}
+                  <div key={j} className="p-5 bg-[#F8F6F2]">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-base text-[#444]">{item.l}</span>
+                      {item.p && <span className="text-xs text-[#aaa]">{item.p}</span>}
                     </div>
-                    <span className="text-xs text-[#888]">{item.s}</span>
+                    <span className="text-sm text-[#888]">{item.s}</span>
                   </div>
                 ))}
               </div>
@@ -247,12 +247,12 @@ export default function App() {
       <Section id="genai" num="02" title="生成式 AI" desc={sections[1].desc}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#d5d0c8]">
           {sections[1].subs.map((sub, i) => (
-            <div key={i} className="p-6 sm:p-8 bg-white">
-              <span className="text-xl sm:text-2xl">{sub.icon}</span>
-              <p className="text-sm sm:text-base text-[#333] my-4" style={{ fontWeight: 400 }}>{sub.label}</p>
-              <ul className="space-y-2">
+            <div key={i} className="p-8 sm:p-10 bg-white">
+              <span className="text-2xl sm:text-3xl">{sub.icon}</span>
+              <p className="text-base sm:text-lg text-[#333] my-5" style={{ fontWeight: 400 }}>{sub.label}</p>
+              <ul className="space-y-3">
                 {sub.items.map((item, j) => (
-                  <li key={j} className="text-xs sm:text-sm text-[#666] flex items-center gap-2">
+                  <li key={j} className="text-sm sm:text-base text-[#666] flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-[#ccc]" />
                     {item}
                   </li>
@@ -262,7 +262,7 @@ export default function App() {
           ))}
         </div>
         <a href="https://ai-photo-lyart.vercel.app/" target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 text-sm text-[#666] px-5 py-2.5 bg-white"
+          className="inline-flex items-center gap-2 mt-8 text-base sm:text-lg text-[#666] px-6 py-3 bg-white"
           style={{ border: '1px solid #d5d0c8' }}>
           <span>AI 圖片生成器</span>
           <span>→</span>
@@ -272,19 +272,19 @@ export default function App() {
       {/* ════════ SECTION 03 ════════ */}
       <Section id="vibe" num="03" title="Vibe Coding" desc={sections[2].desc}>
         <div className="flex flex-col sm:flex-row gap-0 bg-[#d5d0c8]" style={{ outline: '1px solid #d5d0c8' }}>
-          <div className="flex-1 p-6 sm:p-8 bg-white">
-            <p className="text-sm sm:text-base text-[#555] leading-[2]">學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。</p>
-            <p className="text-sm sm:text-base text-[#555] leading-[2] mt-4">專注力從語法解放至邏輯思維，真正實現「想法即程式」的教學理念。</p>
+          <div className="flex-1 p-8 sm:p-10 bg-white">
+            <p className="text-base sm:text-lg text-[#555] leading-[2]">學生無需死記語法，只需以口頭邏輯描述指揮AI撰寫網頁、遊戲與數據分析模型。</p>
+            <p className="text-base sm:text-lg text-[#555] leading-[2] mt-4">專注力從語法解放至邏輯思維，真正實現「想法即程式」的教學理念。</p>
           </div>
-          <div className="flex-1 p-6 sm:p-8" style={{ background: '#F8F6F2', borderLeft: '1px solid #d5d0c8' }}>
-            <div className="flex items-center gap-2 text-sm text-[#2E8B57] mb-4 pb-3" style={{ borderBottom: '1px solid rgba(46,139,87,0.15)' }}>
-              <span className="w-2 h-2 rounded-full bg-[#2E8B57]" />
+          <div className="flex-1 p-8 sm:p-10" style={{ background: '#F8F6F2', borderLeft: '1px solid #d5d0c8' }}>
+            <div className="flex items-center gap-2 text-base sm:text-lg text-[#2E8B57] mb-5 pb-4" style={{ borderBottom: '1px solid rgba(46,139,87,0.15)' }}>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#2E8B57]" />
               Vibe Code
             </div>
-            <div className="text-sm leading-[2.2] text-[#666]"># 「建立一個校園圖書管理系統」</div>
-            <div className="text-sm leading-[2.2] text-[#999]">&gt; 正在生成應用程式…</div>
-            <div className="text-sm leading-[2.2] text-[#999]">&gt; 學生成功在課堂內完成開發。</div>
-            <div className="text-sm leading-[2.2] text-[#2E8B57] mt-1">&gt; ✓ 部署完成</div>
+            <div className="text-base sm:text-lg leading-[2.2] text-[#666]"># 「建立一個校園圖書管理系統」</div>
+            <div className="text-base sm:text-lg leading-[2.2] text-[#999]">&gt; 正在生成應用程式…</div>
+            <div className="text-base sm:text-lg leading-[2.2] text-[#999]">&gt; 學生成功在課堂內完成開發。</div>
+            <div className="text-base sm:text-lg leading-[2.2] text-[#2E8B57] mt-1">&gt; ✓ 部署完成</div>
           </div>
         </div>
       </Section>
@@ -292,14 +292,14 @@ export default function App() {
       {/* ════════ SECTION 04 ════════ */}
       <Section id="assistant" num="04" title="AI 輔助學習" desc={sections[3].desc}>
         <div className="flex flex-col sm:flex-row gap-0 bg-[#d5d0c8]" style={{ outline: '1px solid #d5d0c8' }}>
-          <div className="flex-1 p-6 sm:p-8 bg-white">
-            <p className="text-sm sm:text-base text-[#333] mb-4" style={{ fontWeight: 400 }}>BAFS 商業大亨</p>
-            <p className="text-sm sm:text-base text-[#555] leading-[2] mb-6">結合香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊。</p>
-            <div className="grid grid-cols-4 gap-2">
+          <div className="flex-1 p-8 sm:p-10 bg-white">
+            <p className="text-base sm:text-lg text-[#333] mb-5" style={{ fontWeight: 400 }}>BAFS 商業大亨</p>
+            <p className="text-base sm:text-lg text-[#555] leading-[2] mb-6">結合香港中學文憑試「企會財 (BAFS)」學科知識與大富翁玩法的教育型桌遊。</p>
+            <div className="grid grid-cols-4 gap-3">
               {[['🏢','企業收購'],['🎲','機遇風險'],['📊','法規改變'],['⚖️','稅務懲罰'],['🤝','收購中心'],['📈','證券交易'],['🏦','銀行中心'],['🔨','打工']].map(([icon, label], i) => (
-                <div key={i} className="p-2.5 text-center bg-[#F8F6F2]">
-                  <div className="text-lg">{icon}</div>
-                  <div className="text-[10px] text-[#666] mt-0.5">{label}</div>
+                <div key={i} className="p-3 text-center bg-[#F8F6F2]">
+                  <div className="text-xl">{icon}</div>
+                  <div className="text-xs text-[#666] mt-1">{label}</div>
                 </div>
               ))}
             </div>
@@ -308,7 +308,7 @@ export default function App() {
             <img src={gameImages[gameImg]} alt="BAFS" className="w-full h-auto max-h-[45vh] object-contain mx-auto" />
             <div className="flex justify-center gap-2 py-3 bg-white" style={{ borderTop: '1px solid #eee' }}>
               {gameImages.map((_, i) => (
-                <span key={i} className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'bg-[#555] w-5 h-2' : 'bg-[#ddd] w-2 h-2'}`}
+                <span key={i} className={`rounded-full transition-all cursor-pointer ${i === gameImg ? 'bg-[#555] w-6 h-2.5' : 'bg-[#ddd] w-2.5 h-2.5'}`}
                   onClick={() => setGameImg(i)} />
               ))}
             </div>
@@ -322,7 +322,7 @@ export default function App() {
           <div className="w-10 h-10 rounded-full bg-[#C41E3A] flex items-center justify-center mx-auto mb-4 shadow-sm">
             <span className="text-white text-[9px]">SWS</span>
           </div>
-          <p className="text-sm text-[#888]" style={{ letterSpacing: '0.12em' }}>新會商會中學 · 人工智慧教育</p>
+          <p className="text-base text-[#888]" style={{ letterSpacing: '0.12em' }}>新會商會中學 · 人工智慧教育</p>
         </div>
       </footer>
     </div>
