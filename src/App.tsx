@@ -269,8 +269,12 @@ export default function App() {
           </div>
         </div>
         <a href="https://myf-swcs.free.nf/index.php" target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 text-sm text-[#666] px-5 py-2.5 bg-white" style={{ border: '1px solid #d5d0c8' }}>
-          <span>BAFS 溫習系統</span><span>→</span>
+          className="block mt-6 group" style={{ outline: '1px solid #d5d0c8' }}>
+          <img src="/bafs-study-shot.png" alt="BAFS 溫習系統"
+            className="w-full h-auto transition-opacity duration-500 group-hover:opacity-80" />
+          <div className="py-3 text-center text-sm text-[#888] bg-white" style={{ borderTop: '1px solid #eee' }}>
+            BAFS 溫習系統 →
+          </div>
         </a>
       </Section>
 
