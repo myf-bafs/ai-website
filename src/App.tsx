@@ -86,21 +86,23 @@ export default function App() {
 
       {/* Nav - hidden initially, shows after opening */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-10 py-3"
-        style={{ background: 'rgba(235,231,224,0.93)', backdropFilter: 'blur(8px)', opacity: opened ? 1 : 0, pointerEvents: opened ? 'auto' : 'none', transition: 'opacity 0.6s' }}>
+        style={{ background: 'rgba(235,231,224,0.93)', backdropFilter: 'blur(8px)', opacity: opened ? 1 : 0, pointerEvents: opened ? 'auto' : 'none', transition: 'opacity 0.6s', borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
         <div className="flex items-center gap-3">
-          <img src={emblem} alt="校徽" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
-          <span className="text-sm text-[#666]">新會商會中學</span>
+          <img src={emblem} alt="校徽" className="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
+          <span className="text-sm text-[#666]" style={{ letterSpacing: '0.1em' }}>新會商會中學</span>
         </div>
-        <div className="hidden md:flex items-center gap-6 text-sm text-[#888]" style={{ letterSpacing: '0.15em' }}>
-          <a href="#hero" className="hover:text-[#333]" onClick={() => setOpened(false)}>首頁</a>
+        <div className="hidden md:flex items-center gap-6 text-sm text-[#888]" style={{ letterSpacing: '0.12em' }}>
+          <a href="#hero" className="hover:text-[#C41E3A] transition-colors" onClick={() => setOpened(false)}>首頁</a>
           {sections.map(s => (
-            <a key={s.id} href={'#' + s.id} className="hover:text-[#333]" onClick={() => setOpened(true)}>{s.num}</a>
+            <a key={s.id} href={'#' + s.id} className="hover:text-[#C41E3A] transition-colors" onClick={() => setOpened(true)}>{s.num} {s.title}</a>
           ))}
         </div>
       </nav>
 
       {/* ════════ HERO ════════ */}
       <div id="hero" className="relative overflow-hidden" style={{ height: '100vh', background: '#C9C0B4', cursor: opened ? 'default' : 'pointer' }} onClick={() => !opened && setOpened(true)}>
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 55%, rgba(255,255,255,0.15) 0%, transparent 60%)', pointerEvents: 'none' }} />
         {/* Letter content */}
         <div className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: opened ? 1 : 0, transition: 'opacity 0.8s ease 0.3s' }}>
           <div className="text-center px-4">
@@ -119,37 +121,55 @@ export default function App() {
         </div>
 
         {/* Envelope */}
-        <div className="absolute z-20 bg-white" style={{
-          top: opened ? '-100%' : '5%', bottom: opened ? 'auto' : '5%', left: '5%', right: '5%',
+        <div className="absolute z-20" style={{
+          top: opened ? '-100%' : '6%', bottom: opened ? 'auto' : '6%', left: '6%', right: '6%',
           maxWidth: 520, maxHeight: opened ? 0 : 680, margin: 'auto',
-          borderRadius: 4, boxShadow: opened ? 'none' : '0 20px 80px rgba(0,0,0,0.2)',
+          borderRadius: 4,
           transition: 'top 0.7s cubic-bezier(0.4,0,0.2,1), max-height 0.7s cubic-bezier(0.4,0,0.2,1), box-shadow 0.7s',
           overflow: 'hidden',
         }}>
+          {/* Envelope paper with elegant border */}
+          <div className="absolute inset-0 bg-white" style={{ borderRadius: 4, boxShadow: opened ? 'none' : '0 12px 60px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06)', border: '1px solid #e5e0d8' }} />
+          {/* Inner decorative frame */}
+          <div className="absolute inset-0" style={{ margin: 12, border: '1px solid rgba(196,30,58,0.12)', borderRadius: 2, pointerEvents: 'none' }} />
+
           {/* Flap */}
-          <svg className="absolute top-0 left-0 right-0 w-full" viewBox="0 0 200 24" preserveAspectRatio="none" style={{ height: 24 }}>
-            <path d="M0,0 L200,0 L200,2 L106,21 L100,24 L94,21 L0,2 Z" fill="#f5f4f0" stroke="#ddd" strokeWidth="0.5" />
+          <svg className="absolute top-0 left-0 right-0 w-full z-10" viewBox="0 0 200 28" preserveAspectRatio="none" style={{ height: 28 }}>
+            <defs>
+              <linearGradient id="flapGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#f8f7f4" /><stop offset="100%" stopColor="#f0ede8" /></linearGradient>
+            </defs>
+            <path d="M0,0 L200,0 L200,3 L106,24 L100,28 L94,24 L0,3 Z" fill="url(#flapGrad)" stroke="#ddd" strokeWidth="0.5" />
+            {/* Flap shadow line */}
+            <path d="M0,3 L94,24 L100,28 L106,24 L200,3" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="1.5" />
           </svg>
+
+          {/* Decorative top stripe */}
+          <div className="absolute" style={{ top: 34, left: '50%', transform: 'translateX(-50%)', width: '60%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(196,30,58,0.15), transparent)' }} />
+
           {/* Return address */}
-          <div className="absolute" style={{ top: 30, left: 24 }}>
-            <p className="text-[10px] text-[#bbb]" style={{ letterSpacing: '0.15em' }}>寄件人</p>
-            <p className="text-sm text-[#666]" style={{ fontWeight: 400 }}>新會商會中學</p>
-            <p className="text-xs text-[#888]">屯門良景村 · SWCSSS</p>
+          <div className="absolute" style={{ top: 40, left: 28 }}>
+            <p className="text-[9px] text-[#bbb]" style={{ letterSpacing: '0.2em' }}>寄件人</p>
+            <p className="text-sm text-[#555]" style={{ fontWeight: 400, letterSpacing: '0.08em' }}>新會商會中學</p>
+            <p className="text-xs text-[#999]" style={{ letterSpacing: '0.05em' }}>屯門良景村 · SWCSSS</p>
           </div>
+
           {/* Stamp */}
-          <div className="absolute flex flex-col items-center justify-center" style={{ top: 26, right: 24, width: 48, height: 56, border: '2px solid rgba(196,30,58,0.2)' }}>
-            <span className="text-[7px] text-[#C41E3A] font-bold" style={{ letterSpacing: '0.1em' }}>AIR MAIL</span>
-            <div className="w-4 h-4 mt-1 rounded-full" style={{ border: '1px solid rgba(196,30,58,0.15)' }} />
+          <div className="absolute flex flex-col items-center justify-center" style={{ top: 38, right: 28, width: 50, height: 60, border: '2px solid rgba(196,30,58,0.18)', background: '#fcfaf8' }}>
+            <span className="text-[6px] text-[#C41E3A] font-bold" style={{ letterSpacing: '0.12em' }}>AIR MAIL</span>
+            <div className="w-5 h-5 mt-1 rounded-full flex items-center justify-center" style={{ border: '1px solid rgba(196,30,58,0.12)' }}>
+              <span className="text-[5px] text-[#C41E3A]" style={{ letterSpacing: '0.05em' }}>$3.7</span>
+            </div>
           </div>
+
           {/* Center: emblem */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-6" style={{ marginTop: 12 }}>
-            <p className="text-xs text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center p-3 sm:p-4 mb-3" style={{ border: '2px solid #C41E3A' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6" style={{ marginTop: 8 }}>
+            <p className="text-xs text-[#ccc] mb-5" style={{ letterSpacing: '0.25em', fontWeight: 300 }}>致</p>
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center p-4 mb-4" style={{ border: '2px solid #C41E3A', background: '#fcfaf8', boxShadow: '0 2px 12px rgba(196,30,58,0.08)' }}>
               <img src={emblem} alt="校徽" className="w-full h-full object-contain" />
             </div>
-            <p className="text-base sm:text-lg text-[#444]" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
-            <div style={{ width: 120, height: 1, background: '#e0dcd5', margin: '12px auto' }} />
-            <p className="text-xs text-[#999]" style={{ letterSpacing: '0.12em' }}>香港屯門良景村 新會商會中學</p>
+            <p className="text-lg sm:text-xl text-[#444]" style={{ fontWeight: 400, letterSpacing: '0.25em' }}>全體教職員 · 學生 · 家長</p>
+            <div style={{ width: 100, height: 1, background: 'linear-gradient(90deg, transparent, #ddd, transparent)', margin: '14px auto' }} />
+            <p className="text-xs text-[#aaa]" style={{ letterSpacing: '0.15em' }}>香港屯門良景村 新會商會中學</p>
           </div>
         </div>
 
