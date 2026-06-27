@@ -191,20 +191,22 @@ export default function App() {
               <p className="text-sm text-[#999]">葵涌葵盛圍 · SWCSSS</p>
             </div>
 
-            {/* Address */}
-            <div className="text-center">
+            {/* Address with emblem */}
+            <div className="flex flex-col items-center">
               <p className="text-sm text-[#bbb] mb-4" style={{ letterSpacing: '0.15em' }}>致</p>
-              <p className="text-lg sm:text-xl text-[#444] mb-3" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-md flex items-center justify-center p-3 sm:p-4 mb-4"
+                style={{ border: '2px solid #C41E3A' }}>
+                <img src={emblem} alt="校徽" className="w-full h-full object-contain" />
+              </div>
+              <p className="text-lg sm:text-xl text-[#444]" style={{ fontWeight: 400, letterSpacing: '0.2em' }}>全體教職員 · 學生 · 家長</p>
               <div className="w-36 h-px mx-auto mb-3 bg-[#e0dcd5]" />
               <p className="text-sm text-[#999]" style={{ letterSpacing: '0.12em' }}>新界葵涌葵盛圍 新會商會中學</p>
             </div>
 
-            {/* Wax seal */}
-            <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2"
-              style={{ opacity: 1 - scrollP, transform: `translateX(-50%) scale(${1 - scrollP * 0.5})` }}>
-              <div className="seal-anim w-12 h-12 rounded-full bg-[#C41E3A] flex items-center justify-center shadow-md">
-                <span className="text-white text-[10px]" style={{ letterSpacing: '0.1em' }}>SWS</span>
-              </div>
+            {/* Emblem center */}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-md flex items-center justify-center p-3 sm:p-4"
+              style={{ border: '2px solid #C41E3A' }}>
+              <img src={emblem} alt="校徽" className="w-full h-full object-contain" />
             </div>
           </div>
         </div>
